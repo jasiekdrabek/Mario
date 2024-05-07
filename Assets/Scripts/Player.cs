@@ -5,9 +5,9 @@ public class Player : MonoBehaviour
 {
     public PlayerSpriteRenderer smallRenderer;
     public PlayerSpriteRenderer bigRenderer;
-    //private PlayerSpriteRenderer activeRenderer;
+    private PlayerSpriteRenderer activeRenderer;
 
-    //public CapsuleCollider2D capsuleCollider { get; private set; }
+    public CapsuleCollider2D capsuleCollider { get; private set; }
     public DeathAnimation deathAnimation { get; private set; }
 
     public bool big => bigRenderer.enabled;
@@ -16,9 +16,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        //capsuleCollider = GetComponent<CapsuleCollider2D>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
         deathAnimation = GetComponent<DeathAnimation>();
-        //activeRenderer = smallRenderer;
+        activeRenderer = smallRenderer;
     }
 
     public void Hit()
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
         GameManager.Instance.ResetLevel(3f);
     }
-    /*
+
     public void Grow()
     {
         smallRenderer.enabled = false;
@@ -56,19 +56,19 @@ public class Player : MonoBehaviour
 
         StartCoroutine(ScaleAnimation());
     }
-    */
+
     public void Shrink()
     {
-        //smallRenderer.enabled = true;
-        //bigRenderer.enabled = false;
-        //activeRenderer = smallRenderer;
+        smallRenderer.enabled = true;
+        bigRenderer.enabled = false;
+        activeRenderer = smallRenderer;
 
-        //capsuleCollider.size = new Vector2(1f, 1f);
-        //capsuleCollider.offset = new Vector2(0f, 0f);
+        capsuleCollider.size = new Vector2(1f, 0.25f);
+        capsuleCollider.offset = new Vector2(0f, 0f);
 
-        //StartCoroutine(ScaleAnimation());
+        StartCoroutine(ScaleAnimation());
     }
-    /*
+
     private IEnumerator ScaleAnimation()
     {
         float elapsed = 0f;
@@ -119,5 +119,5 @@ public class Player : MonoBehaviour
         activeRenderer.spriteRenderer.color = Color.white;
         starpower = false;
     }
-    */
+
 }
