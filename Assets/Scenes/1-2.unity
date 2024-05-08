@@ -979,9 +979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263742656db633645a5a96dd79968fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 6.5
-  undergroundHeight: -9.5
-  undergroundThreshold: 0
 --- !u!1001 &535433475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1916,10 +1913,6 @@ PrefabInstance:
       propertyPath: castle
       value: 
       objectReference: {fileID: 79252239}
-    - target: {fileID: -2359809912949958880, guid: f50def2380a3cbf4694a75cb697938db, type: 3}
-      propertyPath: nextStage
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3954811307723010788, guid: f50def2380a3cbf4694a75cb697938db, type: 3}
       propertyPath: m_Name
       value: FlagPole

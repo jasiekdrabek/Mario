@@ -14,6 +14,7 @@ public class PlayerSpriteRenderer : MonoBehaviour
     {
         movement = GetComponentInParent<PlayerMovement>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = true;
     }
 
     private void LateUpdate()
