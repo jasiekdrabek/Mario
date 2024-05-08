@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     public PlayerSpriteRenderer smallRenderer;
     public PlayerSpriteRenderer bigRenderer;
     private PlayerSpriteRenderer activeRenderer;
+    public GameObject Big;
+    public GameObject Small;
 
     public CapsuleCollider2D capsuleCollider { get; private set; }
     public DeathAnimation deathAnimation { get; private set; }
@@ -18,7 +20,10 @@ public class Player : MonoBehaviour
     {
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         deathAnimation = GetComponent<DeathAnimation>();
-        activeRenderer = smallRenderer;
+        smallRenderer.enabled = true;
+        bigRenderer.enabled = false;
+        Small.SetActive(true);
+        Big.SetActive(false);
     }
 
     public void Hit()
@@ -50,6 +55,8 @@ public class Player : MonoBehaviour
         smallRenderer.enabled = false;
         bigRenderer.enabled = true;
         activeRenderer = bigRenderer;
+        Small.SetActive(false);
+        Big.SetActive(true);
 
         capsuleCollider.size = new Vector2(1f, 2f);
         capsuleCollider.offset = new Vector2(0f, 0.5f);
@@ -62,6 +69,8 @@ public class Player : MonoBehaviour
         smallRenderer.enabled = true;
         bigRenderer.enabled = false;
         activeRenderer = smallRenderer;
+        Small.SetActive(true);
+        Big.SetActive(false);
 
         capsuleCollider.size = new Vector2(1f, 0.25f);
         capsuleCollider.offset = new Vector2(0f, 0f);

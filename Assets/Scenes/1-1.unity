@@ -2071,7 +2071,11 @@ PrefabInstance:
     - target: {fileID: -5887138314735226302, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 6180031872642704473, guid: ef3eeee6ca8585f4d904d04cab9791c9, type: 3}
+      objectReference: {fileID: 1388159347639787404, guid: fa95ad22d33368142a5d4dc3231babe6, type: 3}
+    - target: {fileID: 2671927501497115932, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2859185614715855587, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}
       propertyPath: m_Name
       value: MysteryBlock (2)
@@ -2652,17 +2656,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad3ccb829015de04099cddaafe462bde, type: 3}
---- !u!114 &1180030535 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8420810515132801948, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
-  m_PrefabInstance: {fileID: 6208498845752918069}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32f648c8f9ef92140896bb50d1658540, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1208053860 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9179715932166116279, guid: ae7199f9f1908ff489e35953bc2a9ef6, type: 3}
@@ -4450,10 +4443,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mario
       objectReference: {fileID: 0}
-    - target: {fileID: 1600228515450873607, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3131347217340084659, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -4492,18 +4481,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3131347217340084659, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4697665252191406936, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
-      propertyPath: bigRenderer
-      value: 
-      objectReference: {fileID: 1180030535}
-    - target: {fileID: 8389589195322547254, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8420810515132801948, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

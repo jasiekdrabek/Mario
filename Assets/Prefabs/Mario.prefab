@@ -143,6 +143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallRenderer: {fileID: 4123933531481171760}
   bigRenderer: {fileID: 8420810515132801948}
+  Big: {fileID: 6275466475298164228}
+  Small: {fileID: 5796280110242012506}
 --- !u!1 &5796280110242012506
 GameObject:
   m_ObjectHideFlags: 0
