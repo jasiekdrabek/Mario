@@ -7,6 +7,8 @@ public class EntityMovement : MonoBehaviour
 
     private new Rigidbody2D rigidbody;
     private Vector2 velocity;
+    public float deltaDistance = 0;
+    public float deltaRadius = 0;
 
     private void Awake()
     {
@@ -38,11 +40,11 @@ public class EntityMovement : MonoBehaviour
     private void FixedUpdate()
     {
         velocity.x = direction.x * speed;
-        velocity.y += Physics2D.gravity.y * Time.fixedDeltaTime;
+        velocity.y += rigidbody.gravityScale * Physics2D.gravity.y * Time.fixedDeltaTime;
 
         rigidbody.MovePosition(rigidbody.position + velocity * Time.fixedDeltaTime);
 
-        if (rigidbody.Raycast(direction))
+        if (rigidbody.Raycast(direction, deltaRadius, deltaDistance))
         {
             direction = -direction;
         }
@@ -57,6 +59,14 @@ public class EntityMovement : MonoBehaviour
             transform.localEulerAngles = new Vector3(0f, 180f, 0f);
         }
         else if (direction.x < 0f)
+        {
+            transform.localEulerAngles = Vector3.zero;
+        }
+        if ( direction.y < 0f)
+        {
+            transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+        }
+        else if (direction.y > 0f)
         {
             transform.localEulerAngles = Vector3.zero;
         }
