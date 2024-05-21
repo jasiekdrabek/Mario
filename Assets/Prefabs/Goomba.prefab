@@ -147,8 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   direction: {x: -1, y: 0}
-  deltaDistance: 0
-  deltaRadius: 0
+  deltaDistance: 0.2
+  deltaRadius: 0.2
 --- !u!114 &-8340492281915839003
 MonoBehaviour:
   m_ObjectHideFlags: 0
