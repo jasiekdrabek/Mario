@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -29,8 +30,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         HorizontalMovement();
-
-        grounded = rigidbody.Raycast(Vector2.down, 0.2f, 0.2f);
+        float delta = 0f;
+        Player player = GameObject.Find("Mario").GetComponent<Player>();
+        if (!player.big) {
+            delta = 0.2f;
+        }
+        grounded = rigidbody.Raycast(Vector2.down, delta, delta);
 
         if (grounded)
         {

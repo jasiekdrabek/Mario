@@ -6,18 +6,14 @@ using UnityEngine.UI;
 using TMPro;
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI coinsText;
-    public TextMeshProUGUI livesText;
-    public GameObject LifeLostPanel;
-    public GameObject NextLevelPanel;
-    private int score = 0;
-
-
+    public int score { get; set; }
+    public bool isLevelLoading { get; set; }
     public static GameManager Instance { get; private set; }
-    public int world { get; private set; }
-    public int stage { get; private set; }
+    public int world { get;  set; }
+    public int stage { get;  set; }
     public int lives { get; private set; }
     public int coins { get; private set; }
+    public bool isBig { get; set; }
 
     private void Awake()
     {
@@ -28,8 +24,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-//            LifeLostPanel = GameObject.Find("LifeLostPanel");
-//            LifeLostPanel.SetActive(false);
             DontDestroyOnLoad(gameObject);
 
         }
@@ -48,8 +42,33 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         score = 0;
         StartMenu();
-        //UpdateUI();
     }
+
+    private void OnEnable()
+    {
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (isLevelLoading)
+        {
+            UpdateUI();
+        }
+        if (isBig)
+        {
+            Player player = GameObject.Find("Mario").GetComponent<Player>();
+            player.Grow();
+        }
+    }
+
     public void StartMenu()
     {
 
@@ -61,78 +80,71 @@ public class GameManager : MonoBehaviour
     {        
         lives = 3;
         coins = 0;
-//        if (coinsText == null)
-//        {
-//            coinsText = GameObject.Find("CoinsText").GetComponent<TextMeshProUGUI>();
-//        }
+        score = 0;
         LoadLevel(1, 1);
     }
 
     public void GameOver()
     {
+        isLevelLoading = false;
         SceneManager.LoadScene("Game_over");
-        //NewGame();
     }
 
     public void LoadLevel(int world, int stage)
     {
         this.world = world;
         this.stage = stage;
-
+        isLevelLoading=true;
         SceneManager.LoadScene($"{world}-{stage}");
     }
 
     public void NextLevel()
     {
         StartCoroutine(ShowNextLevelPanel());
-        LoadLevel(world, stage + 1);
+        Invoke(nameof(InvokeLoadLevel), 3.3f);
+    }
+
+    private void InvokeLoadLevel()
+    {
+        // Wywo³anie w³aœciwej metody z parametrami
+        LoadLevel(world, stage);
     }
     private IEnumerator ShowNextLevelPanel()
     {
-        if (NextLevelPanel != null)
+        GameObject nls = Extensions.FindInactiveObjectByName("NextLevelScreen");
+        if (nls != null)
         {
-            NextLevelPanel.SetActive(true);
-            yield return new WaitForSeconds(5f);
-            if (NextLevelPanel != null)
-            {
-                NextLevelPanel.SetActive(false);
-            }
+            nls.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            nls.SetActive(false);            
         }
     }
 
-    public void ResetLevel(float delay)
-    {
-        CancelInvoke(nameof(ResetLevel));
-        Invoke(nameof(ResetLevel), delay);
-    }
-
-
     private IEnumerator ShowLifeLostPanel()
     {
-        if (LifeLostPanel != null)
+        GameObject lls = Extensions.FindInactiveObjectByName("LifeLostScreen");
+        if (lls != null)
         {
-            LifeLostPanel.SetActive(true);
-            yield return new WaitForSeconds(5f);
-            if (LifeLostPanel != null)
-            {
-                LifeLostPanel.SetActive(false);
-            }
+            lls.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            lls.SetActive(false);
         }
     }
 
 
     public void ResetLevel()
     {
+        UpdateUI();
         lives--;
 
         if (lives > 0)
         {
             StartCoroutine(ShowLifeLostPanel());
-            Invoke(nameof(LoadCurrentLevel), 5f);
+            Invoke(nameof(LoadCurrentLevel),3.3f);
         }
         else
         {
-            GameOver();
+            Invoke(nameof(GameOver), 3.3f); 
         }
     }
 
@@ -160,17 +172,24 @@ public class GameManager : MonoBehaviour
     }
     private void UpdateUI()
     {
-        if (coinsText == null)
+        TextMeshProUGUI ct; 
+        TextMeshProUGUI lt;
+        TextMeshProUGUI st;
+        GameObject.Find("Coins").TryGetComponent<TextMeshProUGUI>(out ct);
+        if (ct != null)
         {
-            coinsText = GameObject.Find("CoinsText").GetComponent<TextMeshProUGUI>();
+            ct.text = "Coins: " + coins.ToString();
         }
-        if (livesText == null)
+        GameObject.Find("Lives").TryGetComponent<TextMeshProUGUI>(out lt);
+        if (lt != null)
         {
-            livesText = GameObject.Find("LivesText").GetComponent<TextMeshProUGUI >();
+            lt.text = "Lives: " + lives.ToString();
         }
-
-        coinsText.text = "Coins: " + coins.ToString();
-        livesText.text = "Lives: " + lives.ToString();
+        GameObject.Find("Score").TryGetComponent<TextMeshProUGUI>(out st);
+        if (st != null)
+        {
+            st.text = "Score: " + score.ToString();
+        }
     }
 
 }

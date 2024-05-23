@@ -22,4 +22,17 @@ public static class Extensions
         Vector2 direction = other.position - transform.position;
         return Vector2.Dot(direction.normalized, testDirection) > 0.25f;
     }
+
+    public static GameObject FindInactiveObjectByName(string name)
+    {
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.name == name && !obj.activeInHierarchy)
+            {
+                return obj;
+            }
+        }
+        return null;
+    }
 }

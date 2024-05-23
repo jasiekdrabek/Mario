@@ -47,8 +47,8 @@ public class Player : MonoBehaviour
         smallRenderer.enabled = false;
         bigRenderer.enabled = false;
         deathAnimation.enabled = true;
-
-        GameManager.Instance.ResetLevel(3f);
+        GameManager.Instance.isBig = false;
+        GameManager.Instance.ResetLevel();
     }
 
     public void Grow()
@@ -58,10 +58,9 @@ public class Player : MonoBehaviour
         activeRenderer = bigRenderer;
         Small.SetActive(false);
         Big.SetActive(true);
-
+        GameManager.Instance.isBig = true;
         capsuleCollider.size = new Vector2(1f, 2f);
         capsuleCollider.offset = new Vector2(0f, 0.5f);
-
         StartCoroutine(ScaleAnimation());
     }
 
@@ -72,7 +71,7 @@ public class Player : MonoBehaviour
         activeRenderer = smallRenderer;
         Small.SetActive(true);
         Big.SetActive(false);
-
+        GameManager.Instance.isBig = false;
         capsuleCollider.size = new Vector2(1f, 1.5f);
         capsuleCollider.offset = new Vector2(0f, -0.2f);
 

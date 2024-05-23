@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FlagPole : MonoBehaviour
 {
@@ -22,18 +23,25 @@ public class FlagPole : MonoBehaviour
     private IEnumerator LevelCompleteSequence(Transform player)
     {
         player.GetComponent<PlayerMovement>().enabled = false;
-
+        Player p = player.gameObject.GetComponent<Player>();
+        Vector3 delta;
+        if (p.big)
+        {
+            delta = new Vector3(0f, 0f, 0f);
+        }
+        else
+        {
+            delta = new Vector3(0f, 0.5f, 0f);
+        }
         yield return MoveTo(player, poleBottom.position);
-        yield return MoveTo(player, player.position + Vector3.right * 2);
-        yield return MoveTo(player, player.position + Vector3.right + Vector3.down);
-        yield return MoveTo(player, castle.position);
+        yield return MoveTo(player, player.position + Vector3.right  + Vector3.up);
+        yield return MoveTo(player, castle.position + delta);
 
         player.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(2f);
-
-        GameManager.Instance.LoadLevel(nextWorld, nextStage);
-        //GameManager.Instance.NextLevel();
+        GameManager.Instance.world = nextWorld;
+        GameManager.Instance.stage = nextStage;
+        GameManager.Instance.NextLevel();
     }
 
     private IEnumerator MoveTo(Transform subject, Vector3 position)
