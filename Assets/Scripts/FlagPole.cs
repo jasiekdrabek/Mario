@@ -24,7 +24,7 @@ public class FlagPole : MonoBehaviour
         player.GetComponent<PlayerMovement>().enabled = false;
 
         yield return MoveTo(player, poleBottom.position);
-        yield return MoveTo(player, player.position + Vector3.right);
+        yield return MoveTo(player, player.position + Vector3.right * 2);
         yield return MoveTo(player, player.position + Vector3.right + Vector3.down);
         yield return MoveTo(player, castle.position);
 

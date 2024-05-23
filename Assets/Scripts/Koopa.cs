@@ -55,7 +55,11 @@ public class Koopa : MonoBehaviour
         }
         else if (!shelled && other.gameObject.layer == LayerMask.NameToLayer("Shell"))
         {
-            Hit();
+            Vector2 speed = other.attachedRigidbody.velocity;
+            if (speed.x > 0.2f)
+            {
+                Hit();
+            }
         }
     }
 
@@ -66,6 +70,7 @@ public class Koopa : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = shellSprite;
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<EntityMovement>().enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Shell");
     }
 
     private void PushShell(Vector2 direction)

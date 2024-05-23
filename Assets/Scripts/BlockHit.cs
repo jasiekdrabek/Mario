@@ -10,16 +10,17 @@ public class BlockHit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!animating && maxHits != 0 && collision.gameObject.CompareTag("Player"))
+        if (!animating && collision.gameObject.CompareTag("Player"))
         {
             if (collision.transform.DotTest(transform, Vector2.up))
             {
-                Hit();
+                Player player = collision.gameObject.GetComponent<Player>();
+                Hit(player);
             }
         }
     }
 
-    private void Hit()
+    private void Hit(Player player)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = true; // show if hidden
@@ -31,15 +32,15 @@ public class BlockHit : MonoBehaviour
             spriteRenderer.sprite = emptyBlock;
         }
 
-        if (item != null)
+        if (item != null && maxHits >= 0)
         {
             Instantiate(item, transform.position, Quaternion.identity);
         }
 
-        StartCoroutine(Animate());
+        StartCoroutine(Animate(player));
     }
 
-    private IEnumerator Animate()
+    private IEnumerator Animate(Player player)
     {
         animating = true;
 
@@ -50,6 +51,10 @@ public class BlockHit : MonoBehaviour
         yield return Move(animatedPosition, restingPosition);
 
         animating = false;
+        if (maxHits < 0 && player.isBig())
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator Move(Vector3 from, Vector3 to)

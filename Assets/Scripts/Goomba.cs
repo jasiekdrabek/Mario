@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Goomba : MonoBehaviour
@@ -29,7 +30,11 @@ public class Goomba : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Shell"))
         {
-            Hit();
+            Vector2 speed = other.attachedRigidbody.velocity;
+            if (speed.x > 0.2f)
+            {
+                Hit();
+            }
         }
     }
 

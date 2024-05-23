@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
         bigRenderer.enabled = false;
         Small.SetActive(true);
         Big.SetActive(false);
+        activeRenderer = smallRenderer;
     }
 
     public void Hit()
@@ -72,8 +73,8 @@ public class Player : MonoBehaviour
         Small.SetActive(true);
         Big.SetActive(false);
 
-        capsuleCollider.size = new Vector2(1f, 0.25f);
-        capsuleCollider.offset = new Vector2(0f, 0f);
+        capsuleCollider.size = new Vector2(1f, 1.5f);
+        capsuleCollider.offset = new Vector2(0f, -0.2f);
 
         StartCoroutine(ScaleAnimation());
     }
@@ -127,6 +128,15 @@ public class Player : MonoBehaviour
 
         activeRenderer.spriteRenderer.color = Color.white;
         starpower = false;
+    }
+
+    public bool isBig()
+    {
+        if (activeRenderer == bigRenderer)
+        {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         HorizontalMovement();
 
-        grounded = rigidbody.Raycast(Vector2.down);
+        grounded = rigidbody.Raycast(Vector2.down, 0.2f, 0.2f);
 
         if (grounded)
         {
