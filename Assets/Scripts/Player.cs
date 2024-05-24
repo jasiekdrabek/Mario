@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
     public PlayerSpriteRenderer smallRenderer;
     public PlayerSpriteRenderer bigRenderer;
-    private PlayerSpriteRenderer activeRenderer;
+    public PlayerSpriteRenderer activeRenderer;
     public GameObject Big;
     public GameObject Small;
 
@@ -53,6 +53,8 @@ public class Player : MonoBehaviour
 
     public void Grow()
     {
+        GameManager.Instance.score += 10;
+        GameManager.Instance.UpdateUI();
         smallRenderer.enabled = false;
         bigRenderer.enabled = true;
         activeRenderer = bigRenderer;
@@ -103,6 +105,8 @@ public class Player : MonoBehaviour
 
     public void Starpower()
     {
+        GameManager.Instance.score += 10;
+        GameManager.Instance.UpdateUI();
         StartCoroutine(StarpowerAnimation());
     }
 

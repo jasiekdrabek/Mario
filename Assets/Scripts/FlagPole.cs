@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -33,8 +34,8 @@ public class FlagPole : MonoBehaviour
         {
             delta = new Vector3(0f, 0.5f, 0f);
         }
-        yield return MoveTo(player, poleBottom.position);
-        yield return MoveTo(player, player.position + Vector3.right  + Vector3.up);
+        yield return MoveTo(player, poleBottom.position + delta);
+        yield return MoveTo(player, player.position + Vector3.right + delta);
         yield return MoveTo(player, castle.position + delta);
 
         player.gameObject.SetActive(false);
