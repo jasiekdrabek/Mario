@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UIElements;
+
 public class GameManager : MonoBehaviour
 {
     public int score { get; set; }
@@ -14,6 +16,8 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; }
     public int coins { get; private set; }
     public bool isBig { get; set; }
+    private int activePopups = 0; // Liczba aktywnych popupów
+    private const int basePoints = 10; // Podstawowa liczba punktów za przeciwnika
 
     private void Awake()
     {
@@ -66,6 +70,8 @@ public class GameManager : MonoBehaviour
         {
             Player player = GameObject.Find("Mario").GetComponent<Player>();
             player.Grow();
+            score -= 10;
+            UpdateUI();
         }
     }
 
@@ -81,6 +87,7 @@ public class GameManager : MonoBehaviour
         lives = 3;
         coins = 0;
         score = 0;
+        activePopups = 0;
         LoadLevel(1, 1);
     }
 
@@ -167,10 +174,10 @@ public class GameManager : MonoBehaviour
     public void AddLife()
     {
         lives++;
-        score += 5;
+        score += 50;
         UpdateUI();
     }
-    private void UpdateUI()
+    public void UpdateUI()
     {
         TextMeshProUGUI ct; 
         TextMeshProUGUI lt;
@@ -191,5 +198,18 @@ public class GameManager : MonoBehaviour
             st.text = "Score: " + score.ToString();
         }
     }
+    public void IncreaseActivePopups()
+    {
+        activePopups++;
+    }
 
+    public void DecreaseActivePopups()
+    {
+        activePopups--;
+    }
+
+    public int GetPoints()
+    {
+        return basePoints * (activePopups + 1);
+    }
 }
