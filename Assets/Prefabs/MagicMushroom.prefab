@@ -223,6 +223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   direction: {x: 1, y: 0}
+  deltaDistance: 0
+  deltaRadius: 0
 --- !u!114 &3190359294429244703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,4 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fabac28b077e0c4bba271e160db6530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointsPopupPrefab: {fileID: 4582721596864546985, guid: b5a603e83e2d63e47865c31e39d564fa, type: 3}
+  mainCanvas: {fileID: 6710598028478906161, guid: 17099315ce9e64a4dbd6e4db6e22da1a, type: 3}
   type: 2

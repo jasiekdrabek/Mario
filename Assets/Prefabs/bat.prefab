@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flatSprite: {fileID: 21300000, guid: 8154dd34746465c4e9e4cdcb0f6ef113, type: 3}
+  pointsPopupPrefab: {fileID: 4582721596864546985, guid: b5a603e83e2d63e47865c31e39d564fa, type: 3}
 --- !u!58 &3721975353252937489
 CircleCollider2D:
   m_ObjectHideFlags: 0
