@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         inputAxis = Input.GetAxis("Horizontal");
         if (isOnPlatform)
         {
-            velocity.x = Mathf.MoveTowards(velocity.x, Mathf.Max(inputAxis * moveSpeed + rigidbodyPlatform.velocity.x,0), moveSpeed * Time.deltaTime);
+            velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed + rigidbodyPlatform.velocity.x, moveSpeed * Time.deltaTime);
             running = Mathf.Abs(velocity.x) > (0.25f + rigidbodyPlatform.velocity.x) || Mathf.Abs(inputAxis) > 0.25f;
         }
         else
