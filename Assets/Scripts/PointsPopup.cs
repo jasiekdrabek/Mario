@@ -49,4 +49,9 @@ public class PointsPopup : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
+    public void UpdateWorldPosition(Vector3 newWorldPosition)
+    {
+        worldPosition = newWorldPosition;
+    }
 }

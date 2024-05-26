@@ -16,6 +16,7 @@ public class FlagPole : MonoBehaviour
     public Canvas mainCanvas; // Canvas dla popupu punktów
     private float startTime;
     private GameObject popup;
+    private int points;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -33,16 +34,15 @@ public class FlagPole : MonoBehaviour
         Player p = player.gameObject.GetComponent<Player>();
         Vector3 delta = p.big ? Vector3.zero : new Vector3(0f, 0.5f, 0f);
         popup = Instantiate(pointsPopupPrefab, mainCanvas.transform);
-        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position + Vector3.up *9, false);
+        popup.AddComponent<PointsPopup>().Initialize(Camera.main, flag.position + Vector3.right, false);
 
         //float startTime = Time.time;
-        yield return MoveTo(player, poleBottom.position + delta);
+        yield return MoveTo(player, poleBottom.position + delta, true);
         yield return MoveTo(player, player.position + Vector3.right + delta);
         yield return MoveTo(player, castle.position + delta);
         float endTime = Time.time;
         player.gameObject.SetActive(false);
         float duration = endTime - startTime;
-        int points = Mathf.CeilToInt(duration * 100); // Mo¿esz dostosowaæ tê formu³ê
 
         if (popup != null)
         {
@@ -56,15 +56,19 @@ public class FlagPole : MonoBehaviour
         GameManager.Instance.NextLevel();
     }
 
-    private IEnumerator MoveTo(Transform subject, Vector3 position)
+    private IEnumerator MoveTo(Transform subject, Vector3 position, bool addPoints = false)
     {
         while (Vector3.Distance(subject.position, position) > 0.125f)
         {
-            float duration = Time.time - startTime;
-            int points = Mathf.CeilToInt(duration * 100);
             if (popup != null)
             {
-                popup.GetComponent<PointsPopup>().SetPoints(points);
+                if (addPoints)
+                {
+                    float duration = Time.time - startTime;
+                    points = Mathf.CeilToInt(duration * 100);
+                    popup.GetComponent<PointsPopup>().SetPoints(points);
+                }
+                popup.GetComponent<PointsPopup>().UpdateWorldPosition(flag.position + Vector3.right);
             }
             subject.position = Vector3.MoveTowards(subject.position, position, speed * Time.deltaTime);
             yield return null;
