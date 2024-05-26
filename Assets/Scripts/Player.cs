@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,6 +9,8 @@ public class Player : MonoBehaviour
     public PlayerSpriteRenderer activeRenderer;
     public GameObject Big;
     public GameObject Small;
+    public GameObject pointsPopupPrefab;
+    public Canvas mainCanvas;
 
     public CapsuleCollider2D capsuleCollider { get; private set; }
     public DeathAnimation deathAnimation { get; private set; }
@@ -55,6 +58,7 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.score += 10;
         GameManager.Instance.UpdateUI();
+        ShowPoints(10);
         smallRenderer.enabled = false;
         bigRenderer.enabled = true;
         activeRenderer = bigRenderer;
@@ -107,6 +111,7 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.score += 10;
         GameManager.Instance.UpdateUI();
+        ShowPoints(10);
         StartCoroutine(StarpowerAnimation());
     }
 
@@ -133,6 +138,12 @@ public class Player : MonoBehaviour
         starpower = false;
     }
 
+    public void AddLife()
+    {
+        ShowPoints(5);
+        GameManager.Instance.AddLife();
+    }
+
     public bool isBig()
     {
         if (activeRenderer == bigRenderer)
@@ -140,6 +151,39 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void ShowPoints(int points)
+    {
+        if (pointsPopupPrefab == null)
+        {
+            Debug.LogError("PointsPopupPrefab is not assigned!");
+            return;
+        }
+
+        if (mainCanvas == null)
+        {
+            Debug.LogError("MainCanvas is not assigned!");
+            return;
+        }
+
+        GameObject popup = Instantiate(pointsPopupPrefab, mainCanvas.transform);
+
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+        RectTransform popupRectTransform = popup.GetComponent<RectTransform>();
+        popupRectTransform.position = screenPosition;
+
+        TextMeshProUGUI textMesh = popup.GetComponentInChildren<TextMeshProUGUI>();
+        if (textMesh != null)
+        {
+            textMesh.text = points.ToString();
+        }
+        else
+        {
+            Debug.LogError("TextMeshProUGUI component not found in PointsPopupPrefab!");
+        }
+
+        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position, false);
     }
 
 }

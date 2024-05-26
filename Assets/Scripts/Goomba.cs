@@ -95,7 +95,7 @@ public class Goomba : MonoBehaviour
             Debug.LogError("TextMeshProUGUI component not found in PointsPopupPrefab!");
         }
 
-        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position, mainCanvas);
+        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position);
         GameManager.Instance.IncreaseActivePopups();
     }
 

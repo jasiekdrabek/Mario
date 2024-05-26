@@ -2292,7 +2292,7 @@ PrefabInstance:
     - target: {fileID: -5887138314735226302, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 1388159347639787404, guid: fa95ad22d33368142a5d4dc3231babe6, type: 3}
+      objectReference: {fileID: 5706068904059149799, guid: 19e23a7aada59ff4d919e7fa953509c4, type: 3}
     - target: {fileID: 2671927501497115932, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -4408,6 +4408,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 791814098}
     m_Modifications:
     - target: {fileID: -5887138314735226302, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 1388159347639787404, guid: fa95ad22d33368142a5d4dc3231babe6, type: 3}
+    - target: {fileID: -5887138314735226302, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}
       propertyPath: maxHits
       value: 10
       objectReference: {fileID: 0}
@@ -5674,6 +5678,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4697665252191406936, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
+      propertyPath: mainCanvas
+      value: 
+      objectReference: {fileID: 1911409827}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
