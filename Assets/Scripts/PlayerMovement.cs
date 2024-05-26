@@ -16,18 +16,18 @@ public class PlayerMovement : MonoBehaviour
     public float maxJumpTime = 1f;
     public float jumpForce => (2f * maxJumpHeight) / (maxJumpTime / 2f);
     public float gravity => (-2f * maxJumpHeight) / Mathf.Pow((maxJumpTime /2f), 2);
-
+    //public bool running => Mathf.Abs(velocity.x) > (0.25f) || Mathf.Abs(inputAxis) > 0.25f;
     public bool grounded { get; private set; }
     public bool jumping { get; private set; }
-    public bool running;
+    public bool running { get; private set; }
     public bool sliding => (inputAxis > 0f && velocity.x < 0f) || (inputAxis < 0f && velocity.x > 0f);
     public bool falling => velocity.y < 0f && !grounded;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        running = Mathf.Abs(velocity.x) > (0.25f) || Mathf.Abs(inputAxis) > 0.25f;
         camera = Camera.main;
+        running = Mathf.Abs(velocity.x) > (0.25f) || Mathf.Abs(inputAxis) > 0.25f;
     }
 
     private void Update()
@@ -58,8 +58,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            running = Mathf.Abs(velocity.x) > (0.25f) || Mathf.Abs(inputAxis) > 0.25f;
             velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
+            running = Mathf.Abs(velocity.x) > (0.25f) || Mathf.Abs(inputAxis) > 0.25f;
         }
         if(rigidbody.Raycast(Vector2.right * velocity.x))
         {
