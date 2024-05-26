@@ -54,11 +54,14 @@ public class Player : MonoBehaviour
         GameManager.Instance.ResetLevel();
     }
 
-    public void Grow()
+    public void Grow(bool showPoints = true)
     {
         GameManager.Instance.score += 10;
         GameManager.Instance.UpdateUI();
-        ShowPoints(10);
+        if (showPoints)
+        {
+            ShowPoints(10);
+        }
         smallRenderer.enabled = false;
         bigRenderer.enabled = true;
         activeRenderer = bigRenderer;

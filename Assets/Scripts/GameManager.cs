@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         if (isBig)
         {
             Player player = GameObject.Find("Mario").GetComponent<Player>();
-            player.Grow();
+            player.Grow(false);
             score -= 10;
             UpdateUI();
         }
@@ -165,6 +165,7 @@ public class GameManager : MonoBehaviour
         score += 10;
         if (coins == 100)
         {
+            score += 45;
             coins = 0;
             AddLife();
         }
@@ -174,7 +175,7 @@ public class GameManager : MonoBehaviour
     public void AddLife()
     {
         lives++;
-        score += 50;
+        score += 5;
         UpdateUI();
     }
     public void UpdateUI()
