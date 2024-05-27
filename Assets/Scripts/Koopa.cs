@@ -6,8 +6,6 @@ public class Koopa : MonoBehaviour
     public Sprite shellSprite;
     private new Rigidbody2D rigidbody;
     public float shellSpeed = 12f;
-    public GameObject pointsPopupPrefab; // Prefab do wyœwietlania punktów
-    public Canvas mainCanvas;
 
     private bool shelled;
     private bool pushed;
@@ -72,7 +70,8 @@ public class Koopa : MonoBehaviour
         int points = GameManager.Instance.GetPoints();
         GameManager.Instance.score += points;
         GameManager.Instance.UpdateUI();
-        ShowPoints(points); // Wyœwietlanie punktów
+        Player player = GameObject.Find("Mario").GetComponent<Player>();
+        player.ShowPoints(points,true); // Wyœwietlanie punktów
         GetComponent<SpriteRenderer>().sprite = shellSprite;
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<EntityMovement>().enabled = false;
@@ -98,43 +97,10 @@ public class Koopa : MonoBehaviour
         int points = GameManager.Instance.GetPoints();
         GameManager.Instance.score += points;
         GameManager.Instance.UpdateUI();
-        ShowPoints(points); // Wyœwietlanie punktów
+        Player player = GameObject.Find("Mario").GetComponent<Player>();
+        player.ShowPoints(points,true); // Wyœwietlanie punktów
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<DeathAnimation>().enabled = true;
         Destroy(gameObject, 3f);
-    }
-
-    private void ShowPoints(int points)
-    {
-        if (pointsPopupPrefab == null)
-        {
-            Debug.LogError("PointsPopupPrefab is not assigned!");
-            return;
-        }
-
-        if (mainCanvas == null)
-        {
-            Debug.LogError("MainCanvas is not assigned!");
-            return;
-        }
-
-        GameObject popup = Instantiate(pointsPopupPrefab, mainCanvas.transform);
-
-        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        RectTransform popupRectTransform = popup.GetComponent<RectTransform>();
-        popupRectTransform.position = screenPosition;
-
-        TextMeshProUGUI textMesh = popup.GetComponentInChildren<TextMeshProUGUI>();
-        if (textMesh != null)
-        {
-            textMesh.text = points.ToString();
-        }
-        else
-        {
-            Debug.LogError("TextMeshProUGUI component not found in PointsPopupPrefab!");
-        }
-
-        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position);
-        GameManager.Instance.IncreaseActivePopups();
     }
 }

@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    private void ShowPoints(int points)
+    public void ShowPoints(int points, bool isMonsterPopUp = false)
     {
         if (pointsPopupPrefab == null)
         {
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
             Debug.LogError("TextMeshProUGUI component not found in PointsPopupPrefab!");
         }
 
-        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position, false);
+        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position, isMonsterPopUp);
     }
 
 }
