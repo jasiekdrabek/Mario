@@ -16,11 +16,14 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; }
     public int coins { get; private set; }
     public bool isBig { get; set; }
+    public bool tutorial  { get; set; }
+
     private int activePopups = 0; // Liczba aktywnych popupów
     private const int basePoints = 10; // Podstawowa liczba punktów za przeciwnika
 
     private void Awake()
     {
+        tutorial = true;
         if (Instance != null)
         {
             DestroyImmediate(gameObject);
@@ -88,7 +91,14 @@ public class GameManager : MonoBehaviour
         coins = 0;
         score = 0;
         activePopups = 0;
-        LoadLevel(1, 1);
+        if (tutorial)
+        {
+            LoadLevel(1, 0);
+        }
+        else
+        {
+            LoadLevel(1, 1);
+        }
     }
 
     public void GameOver()
@@ -186,7 +196,7 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Coins").TryGetComponent<TextMeshProUGUI>(out ct);
         if (ct != null)
         {
-            ct.text = "Coins: " + coins.ToString();
+            ct.text = "x " + coins.ToString();
         }
         GameObject.Find("Lives").TryGetComponent<TextMeshProUGUI>(out lt);
         if (lt != null)
