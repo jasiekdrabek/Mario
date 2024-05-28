@@ -112,6 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68183108fe106cb4197223e6274d9f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOnPlatform: 0
+  rigidbodyPlatform: {fileID: 0}
   moveSpeed: 8
   maxJumpHeight: 5
   maxJumpTime: 1
@@ -143,8 +145,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smallRenderer: {fileID: 4123933531481171760}
   bigRenderer: {fileID: 8420810515132801948}
+  activeRenderer: {fileID: 0}
   Big: {fileID: 6275466475298164228}
   Small: {fileID: 5796280110242012506}
+  pointsPopupPrefab: {fileID: 4582721596864546985, guid: b5a603e83e2d63e47865c31e39d564fa, type: 3}
+  mainCanvas: {fileID: 0}
 --- !u!1 &5796280110242012506
 GameObject:
   m_ObjectHideFlags: 0

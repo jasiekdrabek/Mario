@@ -5,8 +5,6 @@ using UnityEngine;
 public class Goomba : MonoBehaviour
 {
     public Sprite flatSprite;
-    public GameObject pointsPopupPrefab;
-    public Canvas mainCanvas;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -46,7 +44,8 @@ public class Goomba : MonoBehaviour
         int points = GameManager.Instance.GetPoints();
         GameManager.Instance.score += points;
         GameManager.Instance.UpdateUI();
-        ShowPoints(points);
+        Player player = GameObject.Find("Mario").GetComponent<Player>();
+        player.ShowPoints(points, true); // Wyœwietlanie punktów
         GetComponent<Collider2D>().enabled = false;
         GetComponent<EntityMovement>().enabled = false;
         GetComponent<AnimatedSprite>().enabled = false;
@@ -59,44 +58,10 @@ public class Goomba : MonoBehaviour
         int points = GameManager.Instance.GetPoints();
         GameManager.Instance.score += points;
         GameManager.Instance.UpdateUI();
-        ShowPoints(points);
+        Player player = GameObject.Find("Mario").GetComponent<Player>();
+        player.ShowPoints(points, true); // Wyœwietlanie punktów
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<DeathAnimation>().enabled = true;
         Destroy(gameObject, 3f);
     }
-
-    private void ShowPoints(int points)
-    {
-        if (pointsPopupPrefab == null)
-        {
-            Debug.LogError("PointsPopupPrefab is not assigned!");
-            return;
-        }
-
-        if (mainCanvas == null)
-        {
-            Debug.LogError("MainCanvas is not assigned!");
-            return;
-        }
-
-        GameObject popup = Instantiate(pointsPopupPrefab, mainCanvas.transform);
-
-        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        RectTransform popupRectTransform = popup.GetComponent<RectTransform>();
-        popupRectTransform.position = screenPosition;
-
-        TextMeshProUGUI textMesh = popup.GetComponentInChildren<TextMeshProUGUI>();
-        if (textMesh != null)
-        {
-            textMesh.text = points.ToString();
-        }
-        else
-        {
-            Debug.LogError("TextMeshProUGUI component not found in PointsPopupPrefab!");
-        }
-
-        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position, mainCanvas);
-        GameManager.Instance.IncreaseActivePopups();
-    }
-
 }

@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         if (isOnPlatform)
         {
             velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed + rigidbodyPlatform.velocity.x, moveSpeed * Time.deltaTime);
-            running = Mathf.Abs(velocity.x) > (0.25f + rigidbodyPlatform.velocity.x) || Mathf.Abs(inputAxis) > 0.25f;
+            running = Mathf.Abs(velocity.x) > (0.25f + Mathf.Abs(rigidbodyPlatform.velocity.x)) || Mathf.Abs(inputAxis) > 0.25f;
         }
         else
         {

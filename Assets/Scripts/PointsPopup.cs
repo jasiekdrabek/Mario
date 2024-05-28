@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class PointsPopup : MonoBehaviour
 {
@@ -7,12 +8,21 @@ public class PointsPopup : MonoBehaviour
     private Vector3 worldPosition;
     private float duration = 3f; // Czas trwania popupu w sekundach
     private bool monsterPopup = true;
+    private TextMeshProUGUI pointsText;
 
-    public void Initialize(Camera camera, Vector3 worldPos, Canvas canvas, bool isMonsterPopup = true)
+    public void Initialize(Camera camera, Vector3 worldPos, bool isMonsterPopup = true)
     {
         mainCamera = camera;
         worldPosition = worldPos;
         monsterPopup = isMonsterPopup;
+    }
+    public void SetPoints(int points)
+    {
+        pointsText = GetComponentInChildren<TextMeshProUGUI>();
+        if (pointsText != null)
+        {
+            pointsText.text = points.ToString();
+        }
     }
 
     void Start()
@@ -38,5 +48,10 @@ public class PointsPopup : MonoBehaviour
             GameManager.Instance.DecreaseActivePopups();
         }
         Destroy(gameObject);
+    }
+
+    public void UpdateWorldPosition(Vector3 newWorldPosition)
+    {
+        worldPosition = newWorldPosition;
     }
 }

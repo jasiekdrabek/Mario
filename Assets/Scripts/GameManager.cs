@@ -1,4 +1,4 @@
-﻿
+ï»¿
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -18,16 +18,19 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; }
     public int coins { get; private set; }
     public bool isBig { get; set; }
-    private int activePopups = 0; // Liczba aktywnych popupуw
-    private const int basePoints = 10; // Podstawowa liczba punktуw za przeciwnika
+    private int activePopups = 0; // Liczba aktywnych popupÑƒw
+    private const int basePoints = 10; // Podstawowa liczba punktÑƒw za przeciwnika
     
     private const string filePath = "scores.txt";
     private float gameTime;
     public bool isBasicLevelSelected = true;
     public bool isAdvancedLevelSelected = false;
+    public bool tutorial  { get; set; }
+
 
     private void Awake()
     {
+        tutorial = true;
         if (Instance != null)
         {
             DestroyImmediate(gameObject);
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour
         if (isBig)
         {
             Player player = GameObject.Find("Mario").GetComponent<Player>();
-            player.Grow();
+            player.Grow(false);
             score -= 10;
             UpdateUI();
         }
@@ -98,6 +101,10 @@ public class GameManager : MonoBehaviour
         activePopups = 0;
         gameTime = 0f;
 
+        if (tutorial)
+        {
+            LoadLevel(1, 0);
+        }
         if (isBasicLevelSelected)
         {
             LoadLevel(1, 1); 
@@ -106,8 +113,14 @@ public class GameManager : MonoBehaviour
         {
             LoadLevel(1, 2); 
         }
-
-        //LoadLevel(1, 1);
+        if (tutorial)
+        {
+            LoadLevel(1, 0);
+        }
+        else
+        {
+            LoadLevel(1, 1);
+        }
     }
 
     public void GameOver()
@@ -133,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     private void InvokeLoadLevel()
     {
-        // Wywoіanie wіaњciwej metody z parametrami
+        // WywoÑ–anie wÑ–aÑšciwej metody z parametrami
         LoadLevel(world, stage);
     }
     private IEnumerator ShowNextLevelPanel()
@@ -185,6 +198,7 @@ public class GameManager : MonoBehaviour
         score += 10;
         if (coins == 100)
         {
+            score += 45;
             coins = 0;
             AddLife();
         }
@@ -194,7 +208,7 @@ public class GameManager : MonoBehaviour
     public void AddLife()
     {
         lives++;
-        score += 50;
+        score += 5;
         UpdateUI();
     }
     public void UpdateUI()
@@ -207,7 +221,7 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Coins").TryGetComponent<TextMeshProUGUI>(out ct);
         if (ct != null)
         {
-            ct.text = "Coins: " + coins.ToString();
+            ct.text = "x " + coins.ToString();
         }
         GameObject.Find("Lives").TryGetComponent<TextMeshProUGUI>(out lt);
         if (lt != null)
@@ -261,7 +275,7 @@ public class GameManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("Błąd przy zapisywaniu wyniku: " + e.Message);
+            Debug.LogError("BÅ‚Ä…d przy zapisywaniu wyniku: " + e.Message);
         }
     }
     private string FormatTime(float time)
