@@ -8,8 +8,7 @@ public class TutorialManager : MonoBehaviour
     int popUpIndex = 0;
     public GameObject tutorialImg;
     public Canvas mainCanvas;
-    public GameObject popUpPrefab;
-    GameObject popUp;
+    TextMeshProUGUI popUp;
     bool isDisplayed = false;
     string[] texts = {"To move a player press <- or ->",
         "To jump press space or up",
@@ -21,8 +20,8 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(tutorialImg, mainCanvas.transform);
-        popUp = Instantiate(popUpPrefab, mainCanvas.transform);
+        Transform tutorialImage = Instantiate(tutorialImg.transform, mainCanvas.transform);
+        popUp = tutorialImage.Find("TutorialText").GetComponent<TextMeshProUGUI>(); ;
         popUpIndex = 0;
         //GameObject.Find("Tutorial 1").SetActive(false);
     }
@@ -31,20 +30,16 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
         if (!GameObject.Find("Mario")) return;
-        if (popUpIndex == 6) return;
         for(int i = 0; i< texts.Length; i++)
         {
             if(i == popUpIndex && !isDisplayed)
             {
-                TextMeshProUGUI textMesh = popUp.GetComponentInChildren<TextMeshProUGUI>();
-                if (textMesh != null)
-                {
-                    textMesh.text = texts[popUpIndex];
-                }
+                popUp.text = texts[popUpIndex];
                 isDisplayed = true;
             }
         }
-        if(popUpIndex == 0)
+        if (popUpIndex == 6) return;
+        if (popUpIndex == 0)
         {
             if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
             {
