@@ -48,20 +48,16 @@ public class MainMenu : MonoBehaviour
     }
     public void OnBasicLevelToggle(bool isOn)
     {
-
-        if (isOn)
-        {
             SetLevelOptions(true, false);
-
-        }
     }
 
     public void OnAdvancedLevelToggle(bool isOn)
     {
-
-        if (isOn)
-        {
             SetLevelOptions(false, true);
-        }
+    }
+
+    public void OnTutorialToggle(bool isOn)
+    {        
+            GameManager.Instance.tutorial = !GameManager.Instance.tutorial;
     }
 }
