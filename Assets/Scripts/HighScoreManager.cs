@@ -41,9 +41,7 @@ public class HighScoreManager : MonoBehaviour
             Debug.LogError("Błąd przy odczytywaniu wyników: " + e.Message);
         }
 
-        Debug.Log("HighScoreManager: Loaded " + highScores.Count + " high scores.");
-
-        return highScores.OrderByDescending(entry => entry.score).Take(10).ToList();
+        return highScores.OrderByDescending(entry => entry.score).Take(7).ToList();
     }
 }
 
