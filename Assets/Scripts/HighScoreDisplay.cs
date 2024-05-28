@@ -33,7 +33,9 @@ public class HighScoreDisplay : MonoBehaviour
         {
             if (i < highScores.Count)
             {
-                highScoreTexts[i].text = $"Score: {highScores[i].score} Time: {highScores[i].time} Coins: {highScores[i].coins}";
+                //highScoreTexts[i].text = $"Score: {highScores[i].score} Time: {highScores[i].time} Coins: {highScores[i].coins}";
+                highScoreTexts[i].text = $" {highScores[i].score}  {highScores[i].time}  {highScores[i].coins}";
+
             }
             else
             {
