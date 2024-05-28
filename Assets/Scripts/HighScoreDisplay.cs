@@ -15,16 +15,12 @@ public class HighScoreDisplay : MonoBehaviour
             Debug.LogError("HighScoreDisplay: HighScoreManager not found!");
         }
 
-        // Wyświetlenie wyników po opóźnieniu
         StartCoroutine(DisplayScoresCoroutine());
     }
 
     IEnumerator DisplayScoresCoroutine()
     {
-        // Opóźnienie wywołania metody DisplayHighScores() o jedną klatkę
         yield return null;
-
-        // Wywołanie metody DisplayHighScores() po opóźnieniu
         DisplayHighScores();
     }
 
