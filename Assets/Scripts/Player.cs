@@ -187,6 +187,7 @@ public class Player : MonoBehaviour
         }
 
         popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position, isMonsterPopUp);
+        if (isMonsterPopUp) GameManager.Instance.IncreaseActivePopups();
     }
 
 }

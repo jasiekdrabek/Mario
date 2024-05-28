@@ -104,21 +104,13 @@ public class GameManager : MonoBehaviour
         {
             LoadLevel(1, 0);
         }
-        if (isBasicLevelSelected)
+        else if (isBasicLevelSelected)
         {
             LoadLevel(1, 1); 
         }
         else if (isAdvancedLevelSelected)
         {
             LoadLevel(1, 2); 
-        }
-        if (tutorial)
-        {
-            LoadLevel(1, 0);
-        }
-        else
-        {
-            LoadLevel(1, 1);
         }
     }
 
@@ -215,7 +207,6 @@ public class GameManager : MonoBehaviour
         TextMeshProUGUI ct; 
         TextMeshProUGUI lt;
         TextMeshProUGUI st;
-        TextMeshProUGUI tt;
 
         GameObject.Find("Coins").TryGetComponent<TextMeshProUGUI>(out ct);
         if (ct != null)
@@ -232,6 +223,12 @@ public class GameManager : MonoBehaviour
         {
             st.text = "Score: " + score.ToString();
         }
+    }
+
+    public void UpdateUITime()
+    {
+        TextMeshProUGUI tt;
+        if (!GameObject.Find("Time")) return;
         GameObject.Find("Time").TryGetComponent<TextMeshProUGUI>(out tt);
         if (tt != null)
         {
@@ -258,7 +255,7 @@ public class GameManager : MonoBehaviour
         if (isLevelLoading)
         {
             gameTime += Time.deltaTime;
-            UpdateUI();
+            UpdateUITime();
         }
 
     }

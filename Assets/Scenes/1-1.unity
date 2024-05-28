@@ -2226,6 +2226,10 @@ PrefabInstance:
       propertyPath: nextStage
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -2359809912949958880, guid: f50def2380a3cbf4694a75cb697938db, type: 3}
+      propertyPath: mainCanvas
+      value: 
+      objectReference: {fileID: 1911409827}
     - target: {fileID: 3954811307723010788, guid: f50def2380a3cbf4694a75cb697938db, type: 3}
       propertyPath: m_Name
       value: FlagPole
@@ -5809,6 +5813,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4697665252191406936, guid: ff83d172fcffe344897020e236ab35f7, type: 3}
+      propertyPath: mainCanvas
+      value: 
+      objectReference: {fileID: 1911409827}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
