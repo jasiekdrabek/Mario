@@ -9,12 +9,14 @@ public class PointsPopup : MonoBehaviour
     private float duration = 3f; // Czas trwania popupu w sekundach
     private bool monsterPopup = true;
     private TextMeshProUGUI pointsText;
+    private RectTransform popupRectTransform;
 
     public void Initialize(Camera camera, Vector3 worldPos, bool isMonsterPopup = true)
     {
         mainCamera = camera;
         worldPosition = worldPos;
         monsterPopup = isMonsterPopup;
+        popupRectTransform = GetComponent<RectTransform>();
     }
     public void SetPoints(int points)
     {
@@ -35,8 +37,10 @@ public class PointsPopup : MonoBehaviour
         if (mainCamera != null)
         {
             Vector2 screenPosition = mainCamera.WorldToScreenPoint(worldPosition);
-            RectTransform popupRectTransform = GetComponent<RectTransform>();
-            popupRectTransform.position = screenPosition;
+            Vector2 canvasPosition;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                popupRectTransform.parent as RectTransform, screenPosition, mainCamera, out canvasPosition);
+            popupRectTransform.localPosition = canvasPosition;
         }
     }
 
