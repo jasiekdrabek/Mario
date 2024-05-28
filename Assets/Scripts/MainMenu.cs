@@ -16,11 +16,22 @@ public class MainMenu : MonoBehaviour
 
     public void ShowHighScores()
     {
-        highScorePanel.SetActive(true);
-        HighScoreDisplay highScoreDisplay = highScorePanel.GetComponent<HighScoreDisplay>();
-        if (highScoreDisplay != null)
+        if (highScorePanel != null)
         {
-            highScoreDisplay.DisplayHighScores();
+            highScorePanel.SetActive(true);
+            HighScoreDisplay highScoreDisplay = highScorePanel.GetComponent<HighScoreDisplay>();
+            if (highScoreDisplay != null)
+            {
+                highScoreDisplay.DisplayHighScores();
+            }
+            else
+            {
+                Debug.LogError("MainMenu: HighScoreDisplay component not found on highScorePanel.");
+            }
+        }
+        else
+        {
+            Debug.LogError("MainMenu: highScorePanel not assigned!");
         }
     }
 
@@ -28,6 +39,7 @@ public class MainMenu : MonoBehaviour
     {
         highScorePanel.SetActive(false);
     }
+
 
     public void SetLevelOptions(bool isBasicLevel, bool isAdvancedLevel)
     {
