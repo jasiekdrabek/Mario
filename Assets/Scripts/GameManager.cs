@@ -1,10 +1,12 @@
-
+Ôªø
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.UIElements;
+using System;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,8 +18,13 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; }
     public int coins { get; private set; }
     public bool isBig { get; set; }
-    private int activePopups = 0; // Liczba aktywnych popupÛw
-    private const int basePoints = 10; // Podstawowa liczba punktÛw za przeciwnika
+    private int activePopups = 0; // Liczba aktywnych popup—Éw
+    private const int basePoints = 10; // Podstawowa liczba punkt—Éw za przeciwnika
+    
+    private const string filePath = "scores.txt";
+    private float gameTime;
+    public bool isBasicLevelSelected = true;
+    public bool isAdvancedLevelSelected = false;
 
     private void Awake()
     {
@@ -45,6 +52,7 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         score = 0;
+        gameTime = 0f;
         StartMenu();
     }
 
@@ -88,11 +96,23 @@ public class GameManager : MonoBehaviour
         coins = 0;
         score = 0;
         activePopups = 0;
-        LoadLevel(1, 1);
+        gameTime = 0f;
+
+        if (isBasicLevelSelected)
+        {
+            LoadLevel(1, 1); 
+        }
+        else if (isAdvancedLevelSelected)
+        {
+            LoadLevel(1, 2); 
+        }
+
+        //LoadLevel(1, 1);
     }
 
     public void GameOver()
     {
+        SaveScore(score, gameTime, coins);
         isLevelLoading = false;
         SceneManager.LoadScene("Game_over");
     }
@@ -113,7 +133,7 @@ public class GameManager : MonoBehaviour
 
     private void InvokeLoadLevel()
     {
-        // Wywo≥anie w≥aúciwej metody z parametrami
+        // Wywo—ñanie w—ña—öciwej metody z parametrami
         LoadLevel(world, stage);
     }
     private IEnumerator ShowNextLevelPanel()
@@ -182,6 +202,8 @@ public class GameManager : MonoBehaviour
         TextMeshProUGUI ct; 
         TextMeshProUGUI lt;
         TextMeshProUGUI st;
+        TextMeshProUGUI tt;
+
         GameObject.Find("Coins").TryGetComponent<TextMeshProUGUI>(out ct);
         if (ct != null)
         {
@@ -196,6 +218,12 @@ public class GameManager : MonoBehaviour
         if (st != null)
         {
             st.text = "Score: " + score.ToString();
+        }
+        GameObject.Find("Time").TryGetComponent<TextMeshProUGUI>(out tt);
+        if (tt != null)
+        {
+            //tt.text = "Time: " + gameTime.ToString("F2");
+            tt.text = "Time: " + FormatTime(gameTime);
         }
     }
     public void IncreaseActivePopups()
@@ -212,4 +240,37 @@ public class GameManager : MonoBehaviour
     {
         return basePoints * (activePopups + 1);
     }
+    private void Update()
+    {
+        if (isLevelLoading)
+        {
+            gameTime += Time.deltaTime;
+            UpdateUI();
+        }
+
+    }
+    private void SaveScore(int score, float gameTime, int coins)
+    {
+        try
+        {
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                //writer.WriteLine($"{score},{gameTime.ToString("F2").Replace(',', '.')},{coins}");
+                writer.WriteLine($"{score},{FormatTime(gameTime)},{coins}");
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("B≈ÇƒÖd przy zapisywaniu wyniku: " + e.Message);
+        }
+    }
+    private string FormatTime(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60F);
+        int seconds = Mathf.FloorToInt(time % 60F);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+
+
 }
