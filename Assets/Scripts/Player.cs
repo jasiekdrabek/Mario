@@ -158,35 +158,12 @@ public class Player : MonoBehaviour
 
     public void ShowPoints(int points, bool isMonsterPopUp = false)
     {
-        if (pointsPopupPrefab == null)
-        {
-            Debug.LogError("PointsPopupPrefab is not assigned!");
-            return;
-        }
-
-        if (mainCanvas == null)
-        {
-            Debug.LogError("MainCanvas is not assigned!");
-            return;
-        }
-
         GameObject popup = Instantiate(pointsPopupPrefab, mainCanvas.transform);
 
-        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        RectTransform popupRectTransform = popup.GetComponent<RectTransform>();
-        popupRectTransform.position = screenPosition;
+        PointsPopup pointsPopup = popup.AddComponent<PointsPopup>();
+        pointsPopup.Initialize(Camera.main, transform.position, isMonsterPopUp);
+        pointsPopup.SetPoints(points);
 
-        TextMeshProUGUI textMesh = popup.GetComponentInChildren<TextMeshProUGUI>();
-        if (textMesh != null)
-        {
-            textMesh.text = points.ToString();
-        }
-        else
-        {
-            Debug.LogError("TextMeshProUGUI component not found in PointsPopupPrefab!");
-        }
-
-        popup.AddComponent<PointsPopup>().Initialize(Camera.main, transform.position, isMonsterPopUp);
         if (isMonsterPopUp) GameManager.Instance.IncreaseActivePopups();
     }
 
