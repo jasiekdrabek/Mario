@@ -31,12 +31,19 @@ public class HighScoreManager : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                Debug.Log("HighScoreManager: No scores file found.");
+            }
         }
         catch (Exception e)
         {
             Debug.LogError("Błąd przy odczytywaniu wyników: " + e.Message);
         }
 
+        Debug.Log("HighScoreManager: Loaded " + highScores.Count + " high scores.");
+
         return highScores.OrderByDescending(entry => entry.score).Take(10).ToList();
     }
 }
+
