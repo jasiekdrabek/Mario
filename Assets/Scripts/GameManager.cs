@@ -145,6 +145,14 @@ public class GameManager : MonoBehaviour
         GameObject nls = Extensions.FindInactiveObjectByName("NextLevelScreen");
         if (nls != null)
         {
+            RectTransform rectTransform = nls.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                rectTransform.anchorMin = new Vector2(0, 0);
+                rectTransform.anchorMax = new Vector2(1, 1);
+                rectTransform.offsetMin = Vector2.zero;
+                rectTransform.offsetMax = Vector2.zero;
+            }
             nls.SetActive(true);
             yield return new WaitForSeconds(3f);
             nls.SetActive(false);            
@@ -156,6 +164,14 @@ public class GameManager : MonoBehaviour
         GameObject lls = Extensions.FindInactiveObjectByName("LifeLostScreen");
         if (lls != null)
         {
+            RectTransform rectTransform = lls.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                rectTransform.anchorMin = new Vector2(0, 0);
+                rectTransform.anchorMax = new Vector2(1, 1);
+                rectTransform.offsetMin = Vector2.zero;
+                rectTransform.offsetMax = Vector2.zero;
+            }
             lls.SetActive(true);
             yield return new WaitForSeconds(3f);
             lls.SetActive(false);
@@ -198,7 +214,7 @@ public class GameManager : MonoBehaviour
 
     public void AddLife()
     {
-        lives++;
+        if(lives <=9)lives++;
         score += 5;
         UpdateUI();
     }
@@ -216,7 +232,7 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Lives").TryGetComponent<TextMeshProUGUI>(out lt);
         if (lt != null)
         {
-            lt.text = "Lives: " + lives.ToString();
+            lt.text = lives.ToString();
         }
         GameObject.Find("Score").TryGetComponent<TextMeshProUGUI>(out st);
         if (st != null)
