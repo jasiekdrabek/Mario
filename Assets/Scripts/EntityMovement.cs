@@ -21,11 +21,6 @@ public class EntityMovement : MonoBehaviour
         enabled = true;
     }
 
-    private void OnBecameInvisible()
-    {
-        enabled = false;
-    }
-
     private void OnEnable()
     {
         rigidbody.WakeUp();
