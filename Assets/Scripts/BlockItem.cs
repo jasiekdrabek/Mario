@@ -12,12 +12,16 @@ public class BlockItem : MonoBehaviour
     {
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
         CircleCollider2D physicsCollider = GetComponent<CircleCollider2D>();
-        BoxCollider2D triggerCollider = GetComponent<BoxCollider2D>();
+        BoxCollider2D triggerCollider = null;
+        if (gameObject.tag != "enemy")
+        { 
+            triggerCollider = GetComponent<BoxCollider2D>();
+            triggerCollider.enabled = false;
+        }
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
         rigidbody.isKinematic = true;
         physicsCollider.enabled = false;
-        triggerCollider.enabled = false;
         spriteRenderer.enabled = false;
 
         yield return new WaitForSeconds(0.25f);
@@ -42,7 +46,7 @@ public class BlockItem : MonoBehaviour
 
         rigidbody.isKinematic = false;
         physicsCollider.enabled = true;
-        triggerCollider.enabled = true;
+        if(triggerCollider != null) triggerCollider.enabled = true;
     }
 
 }
