@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6495852554543495881}
   - component: {fileID: -8340492281915839003}
   - component: {fileID: -3759458277259544894}
-  - component: {fileID: 7607643013216948603}
+  - component: {fileID: -764635195415709667}
   m_Layer: 7
   m_Name: Goomba
   m_TagString: Untagged
@@ -162,8 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flatSprite: {fileID: 21300000, guid: dceda839fbcc74441aef5f93f32bdc1a, type: 3}
-  pointsPopupPrefab: {fileID: 4582721596864546985, guid: b5a603e83e2d63e47865c31e39d564fa, type: 3}
-  mainCanvas: {fileID: 0}
 --- !u!114 &-3759458277259544894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,8 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3957887108563687601}
   deadSprite: {fileID: 21300000, guid: dceda839fbcc74441aef5f93f32bdc1a, type: 3}
---- !u!70 &7607643013216948603
-CapsuleCollider2D:
+--- !u!58 &-764635195415709667
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -187,7 +185,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 3396586230356283000}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: a24cca645f3749d4a910780abadb4cd8, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -211,5 +209,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 0.8}
-  m_Direction: 0
+  serializedVersion: 2
+  m_Radius: 0.68
