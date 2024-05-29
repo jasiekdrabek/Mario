@@ -57,7 +57,7 @@ public class Koopa : MonoBehaviour
         else if (!shelled && other.gameObject.layer == LayerMask.NameToLayer("Shell"))
         {
             Vector2 speed = other.attachedRigidbody.velocity;
-            if (speed.x > 0.1f)
+            if (speed.x > 0.05f)
             {
                 Hit();
             }

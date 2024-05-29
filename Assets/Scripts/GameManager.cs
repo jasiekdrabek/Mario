@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int stage { get;  set; }
     public int lives { get; private set; }
     public int coins { get; private set; }
+    public int coinsConvertedToLives { get;set; }
     public bool isBig { get; set; }
     private int activePopups = 0; // Liczba aktywnych popupÑƒw
     private const int basePoints = 10; // Podstawowa liczba punktÑƒw za przeciwnika
@@ -53,8 +54,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        score = 0;
-        gameTime = 0f;
         StartMenu();
     }
 
@@ -99,7 +98,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         activePopups = 0;
         gameTime = 0f;
-
+        coinsConvertedToLives = 0;
         if (tutorial)
         {
             LoadLevel(1, 0);
@@ -116,7 +115,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SaveScore(score, gameTime, coins);
+        SaveScore(score, gameTime, coins + 100 * coinsConvertedToLives);
         isLevelLoading = false;
         SceneManager.LoadScene("Game_over");
     }
@@ -207,6 +206,7 @@ public class GameManager : MonoBehaviour
         {
             score += 45;
             coins = 0;
+            coinsConvertedToLives++;
             AddLife();
         }
         UpdateUI();
@@ -248,7 +248,6 @@ public class GameManager : MonoBehaviour
         GameObject.Find("Time").TryGetComponent<TextMeshProUGUI>(out tt);
         if (tt != null)
         {
-            //tt.text = "Time: " + gameTime.ToString("F2");
             tt.text = "Time: " + FormatTime(gameTime);
         }
     }
@@ -281,7 +280,6 @@ public class GameManager : MonoBehaviour
         {
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
-                //writer.WriteLine($"{score},{gameTime.ToString("F2").Replace(',', '.')},{coins}");
                 writer.WriteLine($"{score},{FormatTime(gameTime)},{coins}");
             }
         }
