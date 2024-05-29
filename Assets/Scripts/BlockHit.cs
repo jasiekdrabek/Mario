@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -12,21 +13,25 @@ public class BlockHit : MonoBehaviour
     public GameObject item;
     public Sprite emptyBlock;
     public int maxHits = -1;
+    public float coinPropability = 0.5f;
+    public float magicMushroomPropability = 0.1f;
+    public float oneUpMushroomPropability = 0.1f;
+    public float dinoPropability = 0.1f;
+    public float bearPropability = 0.1f;
+    public float koopaPropability = 0.1f;
     private bool animating;
     private bool isItemNull = false;
-    private ItemProbability[] itemsWithProbabilities = new ItemProbability[]
-    {
-        new ItemProbability { itemName = "BlockCoin", probability = 0.5f },
-        new ItemProbability { itemName = "MagicMushroom", probability = 0.1f },
-        new ItemProbability { itemName = "1upMushroom", probability = 0.1f },
-        new ItemProbability { itemName = "DinoMystery", probability = 0.1f },
-        new ItemProbability { itemName = "bearMystery", probability = 0.1f },
-        new ItemProbability { itemName = "KoopaMystery", probability = 0.1f }
-    };
+    private ItemProbability[] itemsWithProbabilities = new ItemProbability[6];
 
     void Start()
     {
         if(item == null) isItemNull = true;
+        itemsWithProbabilities[0] = new ItemProbability { itemName = "BlockCoin", probability = coinPropability };
+        itemsWithProbabilities[1] = new ItemProbability { itemName = "MagicMushroom", probability = magicMushroomPropability };
+        itemsWithProbabilities[2] = new ItemProbability { itemName = "1upMushroom", probability = magicMushroomPropability };
+        itemsWithProbabilities[3] = new ItemProbability { itemName = "DinoMystery", probability = magicMushroomPropability };
+        itemsWithProbabilities[4] = new ItemProbability { itemName = "bearMystery", probability = magicMushroomPropability };
+        itemsWithProbabilities[5] = new ItemProbability { itemName = "KoopaMystery", probability = magicMushroomPropability };
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
