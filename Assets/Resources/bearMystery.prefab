@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 6116006275336704352}
   - component: {fileID: 2689156484481621801}
   - component: {fileID: 9014697072979720171}
+  - component: {fileID: -7321166441875961137}
   m_Layer: 7
-  m_Name: bear
-  m_TagString: Untagged
+  m_Name: bearMystery
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,3 +214,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flatSprite: {fileID: 21300000, guid: 05806b63f014ac3449ddae915b77a961, type: 3}
+--- !u!114 &-7321166441875961137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452520328793898851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4dc96f1a64b91f468d46ccc9992c2b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
