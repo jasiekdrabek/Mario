@@ -47,7 +47,9 @@ public class Goomba : MonoBehaviour
         Player player = GameObject.Find("Mario").GetComponent<Player>();
         player.ShowPoints(points, true); // Wyœwietlanie punktów
         GetComponent<Collider2D>().enabled = false;
-        GetComponent<EntityMovement>().enabled = false;
+        if(GetComponent<groundEntityMovement>() != null) GetComponent<groundEntityMovement>().enabled = false;
+        if (GetComponent<flyingEntityMovement>() != null) GetComponent<flyingEntityMovement>().enabled = false;
+        if (GetComponent<EntityMovement>() != null) GetComponent<EntityMovement>().enabled = false;
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<SpriteRenderer>().sprite = flatSprite;
         Destroy(gameObject, 0.5f);

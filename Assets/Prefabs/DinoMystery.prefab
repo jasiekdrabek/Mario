@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1541073971604771064}
   - component: {fileID: 2509709839580164445}
   - component: {fileID: 6336269389177550053}
-  - component: {fileID: 4571495450594986190}
   - component: {fileID: 1824602085473004286}
   - component: {fileID: 5764296557952009508}
   - component: {fileID: 5128087596525366206}
+  - component: {fileID: 3811742999705710184}
   m_Layer: 7
   m_Name: DinoMystery
   m_TagString: enemy
@@ -124,7 +124,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
@@ -174,22 +174,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.2}
   serializedVersion: 2
   m_Radius: 0.65
---- !u!114 &4571495450594986190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3557110707077323785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9afec6a8ccc0b45a56156dea422c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  direction: {x: -1, y: 0}
-  deltaDistance: 0
-  deltaRadius: 0.2
 --- !u!114 &1824602085473004286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,3 +213,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dc96f1a64b91f468d46ccc9992c2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3811742999705710184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3557110707077323785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3893351a70de1d246a52d5ac7483f400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  direction: {x: -1, y: 0}
+  jumpForce: 5
+  minJumpInterval: 2
+  maxJumpInterval: 5
+  velocity: {x: 0, y: 0}
+  deltaDistance: 0
+  deltaRadius: 0.2
