@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2989250466677488542}
   - component: {fileID: 4919750791414822194}
   - component: {fileID: 1669879097072956608}
-  - component: {fileID: 714269230690348990}
   - component: {fileID: 5387677057711846929}
   - component: {fileID: 6918553293737969649}
   - component: {fileID: 7208389848939279822}
+  - component: {fileID: -6705071547941223729}
   m_Layer: 7
   m_Name: eagle
   m_TagString: Untagged
@@ -120,7 +120,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -135,22 +135,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &714269230690348990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2172059128064216641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9afec6a8ccc0b45a56156dea422c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  direction: {x: -1, y: 1}
-  deltaDistance: 0.3
-  deltaRadius: 0.3
 --- !u!114 &5387677057711846929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flatSprite: {fileID: 21300000, guid: ccad675daa178bf42b05769514299c0d, type: 3}
-  pointsPopupPrefab: {fileID: 4582721596864546985, guid: b5a603e83e2d63e47865c31e39d564fa, type: 3}
 --- !u!58 &7208389848939279822
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -214,3 +197,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.75
+--- !u!114 &-6705071547941223729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2172059128064216641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fa62544eef5864984dbf121310cf5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  direction: {x: -1, y: 1}
+  minJumpInterval: 1
+  maxJumpInterval: 3
+  moveRange: 3
+  velocity: {x: 0, y: 0}
+  deltaDistance: 0.3
+  deltaRadius: 0.3
