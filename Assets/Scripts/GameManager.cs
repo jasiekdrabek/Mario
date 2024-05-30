@@ -23,8 +23,7 @@ public class GameManager : MonoBehaviour
     
     private const string filePath = "scores.txt";
     public float gameTime;
-    public bool isBasicLevelSelected = true;
-    public bool isAdvancedLevelSelected = false;
+    public string difficultyLevel = "";
     public bool tutorial  { get; set; }
 
 
@@ -103,13 +102,9 @@ public class GameManager : MonoBehaviour
         {
             LoadLevel(1, 0);
         }
-        else if (isBasicLevelSelected)
+        else
         {
             LoadLevel(1, 1); 
-        }
-        else if (isAdvancedLevelSelected)
-        {
-            LoadLevel(1, 2); 
         }
     }
 
@@ -124,7 +119,7 @@ public class GameManager : MonoBehaviour
         this.world = world;
         this.stage = stage;
         isLevelLoading=true;
-        SceneManager.LoadScene($"{world}-{stage}");
+        SceneManager.LoadScene($"{world}-{stage}{difficultyLevel}");
     }
 
     public void NextLevel()

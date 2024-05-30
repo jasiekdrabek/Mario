@@ -40,20 +40,14 @@ public class MainMenu : MonoBehaviour
         highScorePanel.SetActive(false);
     }
 
-
-    public void SetLevelOptions(bool isBasicLevel, bool isAdvancedLevel)
-    {
-        GameManager.Instance.isBasicLevelSelected = isBasicLevel;
-        GameManager.Instance.isAdvancedLevelSelected = isAdvancedLevel;
-    }
     public void OnBasicLevelToggle(bool isOn)
     {
-            SetLevelOptions(true, false);
+        GameManager.Instance.difficultyLevel = "";
     }
 
     public void OnAdvancedLevelToggle(bool isOn)
     {
-            SetLevelOptions(false, true);
+        GameManager.Instance.difficultyLevel = "-hidden";
     }
 
     public void OnTutorialToggle(bool isOn)
