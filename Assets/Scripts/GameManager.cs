@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     private const int basePoints = 10; // Podstawowa liczba punktÑƒw za przeciwnika
     
     private const string filePath = "scores.txt";
-    private float gameTime;
+    public float gameTime;
     public bool isBasicLevelSelected = true;
     public bool isAdvancedLevelSelected = false;
     public bool tutorial  { get; set; }
@@ -115,7 +115,6 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SaveScore(score, gameTime, coins + 100 * coinsConvertedToLives);
         isLevelLoading = false;
         SceneManager.LoadScene("Game_over");
     }
@@ -274,13 +273,13 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private void SaveScore(int score, float gameTime, int coins)
+    public void SaveScore(string name)
     {
         try
         {
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
-                writer.WriteLine($"{score},{FormatTime(gameTime)},{coins}");
+                writer.WriteLine($"{score},{FormatTime(gameTime)},{coins},{name}");
             }
         }
         catch (Exception e)
@@ -288,7 +287,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("BÅ‚Ä…d przy zapisywaniu wyniku: " + e.Message);
         }
     }
-    private string FormatTime(float time)
+    public string FormatTime(float time)
     {
         int minutes = Mathf.FloorToInt(time / 60F);
         int seconds = Mathf.FloorToInt(time % 60F);

@@ -40,6 +40,7 @@ public class HighScoreDisplay : MonoBehaviour
             highScore.Find("Score").GetComponent<TextMeshProUGUI>().text = highScores[i].score.ToString();
             highScore.Find("Time").GetComponent<TextMeshProUGUI>().text = highScores[i].time.ToString();
             highScore.Find("Coins").GetComponent<TextMeshProUGUI>().text = highScores[i].coins.ToString();
+            highScore.Find("Name").GetComponent<TextMeshProUGUI>().text = highScores[i].name.ToString();
             highScore.Find("Background").gameObject.SetActive(i %2 == 1);
         }
     }

@@ -20,13 +20,14 @@ public class HighScoreManager : MonoBehaviour
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split(',');
-                    if (parts.Length == 3)
+                    if (parts.Length == 4)
                     {
                         int score = int.Parse(parts[0]);
                         string time = parts[1];
                         int coins = int.Parse(parts[2]);
+                        string name = parts[3];
 
-                        HighScoreEntry entry = new HighScoreEntry { score = score, time = time, coins = coins };
+                        HighScoreEntry entry = new HighScoreEntry { score = score, time = time, coins = coins, name=name };
                         highScores.Add(entry);
                     }
                 }
