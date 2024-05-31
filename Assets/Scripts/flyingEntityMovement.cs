@@ -86,14 +86,17 @@ public class flyingEntityMovement : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = Random.Range(minJumpInterval, maxJumpInterval);
-            yield return new WaitForSeconds(waitTime);
-            float deltaY =  transform.position.y - initialPosition.y;
-            Vector3 newPosition = Vector3.zero;
-            if (deltaY <= 2f && deltaY >= -2f) changeHeight =   1+ GetRandomGaussian() * moveRange;
-            if (deltaY > 2f) changeHeight =  -2;
-            if (deltaY < -2f) changeHeight =  2;
-            isChangeHeight = true;
+            if (isChangeHeight) yield return null;
+            float changeChance = Random.value;
+            if (changeChance >= 0.80f)
+            {
+                float deltaY = transform.position.y - initialPosition.y;
+                if (deltaY <= 2f && deltaY >= -2f) changeHeight = 1 + GetRandomGaussian() * moveRange;
+                if (deltaY > 2f) changeHeight = -2;
+                if (deltaY < -2f) changeHeight = 2;
+                isChangeHeight = true;
+            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 

@@ -95,13 +95,14 @@ public class groundEntityMovement : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = Random.Range(minJumpInterval, maxJumpInterval);
-            yield return new WaitForSeconds(waitTime);
-            if (isGrounded)
+            if (jumping) yield return null;
+            float jumpChance = Random.value;
+            if (isGrounded && jumpChance >= 0.90)
             {
                 jumping = true;
                 velocity.y = jumpForce;
             }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
