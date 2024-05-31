@@ -5,9 +5,9 @@ public class groundEntityMovement : MonoBehaviour
 {
     public float speed = 1f;
     public Vector2 direction = Vector2.left;
-    public float jumpForce = 50f; // Si³a skoku
-    public float minJumpInterval = 1f; // Minimalny czas miêdzy skokami
-    public float maxJumpInterval = 3f; // Maksymalny czas miêdzy skokami
+    private float jumpForce = 20f; // Si³a skoku
+    private float minJumpInterval = 2f; // Minimalny czas miêdzy skokami
+    private float maxJumpInterval = 4f; // Maksymalny czas miêdzy skokami
 
     private new Rigidbody2D rigidbody;
     public Vector2 velocity;
@@ -15,7 +15,7 @@ public class groundEntityMovement : MonoBehaviour
     public float deltaRadius = 0;
     private bool isGrounded = true;
     private bool jumping = false;
-    private float jumpingTime = 1f;
+    private float jumpingTime = 0.25f;
 
     public float gravity => (-2f * 5f) / Mathf.Pow((1f / 2f), 2);
     public bool falling => velocity.y < 0f && !isGrounded;
@@ -43,17 +43,17 @@ public class groundEntityMovement : MonoBehaviour
         rigidbody.Sleep();
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
         isGrounded = rigidbody.Raycast(Vector2.down, 0f, 0.3f);
         if (jumping)
         {
-            Jump();
-            jumpingTime -= 0.03f;
+            jumpingTime -= Time.fixedDeltaTime;
             if (jumpingTime <= 0f)
             {
                 jumping = false;
-                jumpingTime = 1f;
+                jumpingTime = 0.25f;
             }
         }
         if (isGrounded)
@@ -64,10 +64,6 @@ public class groundEntityMovement : MonoBehaviour
         {
             ApplyGravity();
         }
-    }
-
-    private void FixedUpdate()
-    {
         if (rigidbody.Raycast(direction, deltaRadius, deltaDistance))
         {
             direction = -direction;
@@ -104,18 +100,14 @@ public class groundEntityMovement : MonoBehaviour
             if (isGrounded)
             {
                 jumping = true;
+                velocity.y = jumpForce;
             }
         }
     }
 
-    private void Jump()
-    {
-        velocity.y = jumpForce;
-    }
-
     private void ApplyGravity()
     {
-        bool falling = velocity.y < 0f;
+        bool falling = velocity.y < 0f || !jumping;
         float multiplier = falling ? 2f : 1f;
         velocity.y += gravity * multiplier * Time.deltaTime;
         velocity.y = Mathf.Max(velocity.y, gravity / 2f);
