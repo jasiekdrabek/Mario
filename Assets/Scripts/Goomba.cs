@@ -23,19 +23,12 @@ public class Goomba : MonoBehaviour
             else
             {
                 player.Hit();
+                new WaitForSeconds(1f);
             }
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Shell"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Shell"))
         {
-            Vector2 speed = other.attachedRigidbody.velocity;
-            if (speed.x > 0.1f)
-            {
-                Hit();
-            }
+            Hit();
         }
     }
 

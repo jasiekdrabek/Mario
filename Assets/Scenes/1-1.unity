@@ -2281,6 +2281,7 @@ Transform:
   - {fileID: 484129375}
   - {fileID: 380061749}
   - {fileID: 2085597759}
+  - {fileID: 2004221178}
   m_Father: {fileID: 308310726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &632549013 stripped
@@ -2780,7 +2781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2721494199086006762, guid: f1d3ea1187aec1242a7ef4428a50398d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.45
+      value: -2.72
       objectReference: {fileID: 0}
     - target: {fileID: 2721494199086006762, guid: f1d3ea1187aec1242a7ef4428a50398d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3700,7 +3701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Gratulacje! Przechodzisz do nast\u0119pnej cz\u0119\u015Bci gry!"
+  m_text: Congratulations! You move on to the next stage of the game!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7383,6 +7384,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82634c7811114304c90dec55b26ff03f, type: 3}
+--- !u!1001 &2004221177
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 616421529}
+    m_Modifications:
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 146.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.017187597
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7931483280750011941, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+      propertyPath: m_Name
+      value: HardBlock (13)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+--- !u!4 &2004221178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1935640645260624888, guid: 3b1a59543ef07624eab2e8bd8250270a, type: 3}
+  m_PrefabInstance: {fileID: 2004221177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2027800921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6490417795556266186, guid: c938759bde6d45744a2396ad5cc29ef6, type: 3}

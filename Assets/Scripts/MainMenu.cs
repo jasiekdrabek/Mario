@@ -45,9 +45,14 @@ public class MainMenu : MonoBehaviour
         GameManager.Instance.difficultyLevel = "";
     }
 
-    public void OnAdvancedLevelToggle(bool isOn)
+    public void OnHiddenToggle(bool isOn)
     {
         GameManager.Instance.difficultyLevel = "-hidden";
+    }
+
+    public void OnMonsterToggle(bool isOn)
+    {
+        GameManager.Instance.difficultyLevel = "-monster";
     }
 
     public void OnTutorialToggle(bool isOn)

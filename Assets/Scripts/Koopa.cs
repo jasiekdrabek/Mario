@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -29,6 +30,10 @@ public class Koopa : MonoBehaviour
                 player.Hit();
             }
         }
+        if (!shelled && collision.gameObject.layer == LayerMask.NameToLayer("Shell"))
+        {
+            Hit();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -54,14 +59,6 @@ public class Koopa : MonoBehaviour
                 }
             }
         }
-        else if (!shelled && other.gameObject.layer == LayerMask.NameToLayer("Shell"))
-        {
-            Vector2 speed = other.attachedRigidbody.velocity;
-            if (speed.x > 0.05f)
-            {
-                Hit();
-            }
-        }
     }
 
     private void EnterShell()
@@ -75,7 +72,13 @@ public class Koopa : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = shellSprite;
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<EntityMovement>().enabled = false;
-        gameObject.layer = LayerMask.NameToLayer("Shell");
+        StartCoroutine(DestroyAfterTime(5f));
+    }
+
+    private IEnumerator DestroyAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
     }
 
     private void PushShell(Vector2 direction)

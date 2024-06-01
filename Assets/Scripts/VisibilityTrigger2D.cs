@@ -27,5 +27,17 @@ public class VisibilityTrigger2D : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Ustaw obiekt jako widoczny
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.enabled = true;
+            }
+        }
+    }
 }
 

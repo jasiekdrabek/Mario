@@ -6,8 +6,8 @@ public class RandomMovingPlatform : MonoBehaviour
 {
     public Transform posA, posB;
     public float speed;
-    private float minSpeed = 1f;
-    private float maxSpeed = 3.5f;
+    private float minSpeed = 2.5f;
+    private float maxSpeed = 3.7f;
     Vector3 targetPos;
     PlayerMovement playerMovement;
     new Rigidbody2D rigidbody;

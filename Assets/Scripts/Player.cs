@@ -159,7 +159,6 @@ public class Player : MonoBehaviour
     public void ShowPoints(int points, bool isMonsterPopUp = false)
     {
         GameObject popup = Instantiate(pointsPopupPrefab, mainCanvas.transform);
-
         PointsPopup pointsPopup = popup.AddComponent<PointsPopup>();
         pointsPopup.Initialize(Camera.main, transform.position, isMonsterPopUp);
         pointsPopup.SetPoints(points);

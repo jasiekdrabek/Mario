@@ -11,7 +11,9 @@ public class Spike : MonoBehaviour
 
                 if (!player.starpower)              
                 {
-                    player.Hit();
+                new WaitForSeconds(0.3f);
+                player.Hit();
+                new WaitForSeconds(3f);
                 }
             }
 

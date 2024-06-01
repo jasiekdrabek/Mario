@@ -14,7 +14,7 @@ public class PointsPopup : MonoBehaviour
     public void Initialize(Camera camera, Vector3 worldPos, bool isMonsterPopup = true)
     {
         mainCamera = camera;
-        worldPosition = worldPos;
+        worldPosition = worldPos + new Vector3(1,1,0);
         monsterPopup = isMonsterPopup;
         popupRectTransform = GetComponent<RectTransform>();
     }

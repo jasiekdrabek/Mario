@@ -119,6 +119,12 @@ public class GameManager : MonoBehaviour
         this.world = world;
         this.stage = stage;
         isLevelLoading=true;
+        activePopups = 0;
+        if (stage == 0)
+        {
+            SceneManager.LoadScene($"{world}-{stage}");
+            return;
+        } 
         SceneManager.LoadScene($"{world}-{stage}{difficultyLevel}");
     }
 
