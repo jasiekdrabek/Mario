@@ -6,8 +6,6 @@ public class flyingEntityMovement : MonoBehaviour
 {
     public float speed = 1f;
     public Vector2 direction = Vector2.left;
-    private float minJumpInterval = 2f;
-    private float maxJumpInterval = 4f;
     private float moveRange = 4f;  // Zakres ruchu na osi y
 
     private new Rigidbody2D rigidbody;

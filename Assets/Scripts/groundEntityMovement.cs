@@ -6,8 +6,6 @@ public class groundEntityMovement : MonoBehaviour
     public float speed = 1f;
     public Vector2 direction = Vector2.left;
     private float jumpForce = 20f; // Si³a skoku
-    private float minJumpInterval = 2f; // Minimalny czas miêdzy skokami
-    private float maxJumpInterval = 4f; // Maksymalny czas miêdzy skokami
 
     private new Rigidbody2D rigidbody;
     public Vector2 velocity;
@@ -15,7 +13,7 @@ public class groundEntityMovement : MonoBehaviour
     public float deltaRadius = 0;
     private bool isGrounded = true;
     private bool jumping = false;
-    private float jumpingTime = 0.25f;
+    private float jumpingTime;
 
     public float gravity => (-2f * 5f) / Mathf.Pow((1f / 2f), 2);
     public bool falling => velocity.y < 0f && !isGrounded;
@@ -53,7 +51,6 @@ public class groundEntityMovement : MonoBehaviour
             if (jumpingTime <= 0f)
             {
                 jumping = false;
-                jumpingTime = 0.25f;
             }
         }
         if (isGrounded)
@@ -100,7 +97,8 @@ public class groundEntityMovement : MonoBehaviour
             if (isGrounded && jumpChance >= 0.90)
             {
                 jumping = true;
-                velocity.y = jumpForce;
+                velocity.y = jumpForce - speed;
+                jumpingTime = Random.Range(0.25f, 1.25f);
             }
             yield return new WaitForSeconds(0.1f);
         }

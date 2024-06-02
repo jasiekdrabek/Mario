@@ -28,10 +28,10 @@ public class BlockHit : MonoBehaviour
         if(item == null) isItemNull = true;
         itemsWithProbabilities[0] = new ItemProbability { itemName = "BlockCoin", probability = coinPropability };
         itemsWithProbabilities[1] = new ItemProbability { itemName = "MagicMushroom", probability = magicMushroomPropability };
-        itemsWithProbabilities[2] = new ItemProbability { itemName = "1upMushroom", probability = magicMushroomPropability };
-        itemsWithProbabilities[3] = new ItemProbability { itemName = "DinoMystery", probability = magicMushroomPropability };
-        itemsWithProbabilities[4] = new ItemProbability { itemName = "bearMystery", probability = magicMushroomPropability };
-        itemsWithProbabilities[5] = new ItemProbability { itemName = "KoopaMystery", probability = magicMushroomPropability };
+        itemsWithProbabilities[2] = new ItemProbability { itemName = "1upMushroom", probability = oneUpMushroomPropability };
+        itemsWithProbabilities[3] = new ItemProbability { itemName = "DinoMystery", probability = dinoPropability };
+        itemsWithProbabilities[4] = new ItemProbability { itemName = "bearMystery", probability = bearPropability };
+        itemsWithProbabilities[5] = new ItemProbability { itemName = "KoopaMystery", probability = koopaPropability };
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -112,9 +112,9 @@ public class BlockHit : MonoBehaviour
         {
             totalProbability += itemProbability.probability;
         }
-
+        Debug.Log(totalProbability);
         float randomPoint = Random.value * totalProbability;
-
+        Debug.Log(randomPoint);
         foreach (var itemProbability in itemsWithProbabilities)
         {
             if (randomPoint < itemProbability.probability)
