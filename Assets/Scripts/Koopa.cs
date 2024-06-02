@@ -10,6 +10,7 @@ public class Koopa : MonoBehaviour
 
     private bool shelled;
     private bool pushed;
+    private bool hited;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -34,24 +35,20 @@ public class Koopa : MonoBehaviour
         {
             Hit();
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (shelled && other.CompareTag("Player"))
+        if (shelled && collision.gameObject.CompareTag("Player"))
         {
             if (!pushed)
             {
-                Vector2 direction = new Vector2(transform.position.x - other.transform.position.x, 0f);
+                Vector2 direction = new Vector2(transform.position.x - collision.transform.position.x, 0f);
                 PushShell(direction);
             }
             else
             {
-                Player player = other.GetComponent<Player>();
+                Player player = collision.gameObject.GetComponent<Player>();
 
                 if (player.starpower)
                 {
-                    Hit();
+                    Destroy(gameObject);
                 }
                 else
                 {
@@ -97,6 +94,8 @@ public class Koopa : MonoBehaviour
 
     private void Hit()
     {
+        if (hited) return;
+        hited = true;
         int points = GameManager.Instance.GetPoints();
         GameManager.Instance.score += points;
         GameManager.Instance.UpdateUI();
@@ -104,6 +103,6 @@ public class Koopa : MonoBehaviour
         player.ShowPoints(points,true); // Wyœwietlanie punktów
         GetComponent<AnimatedSprite>().enabled = false;
         GetComponent<DeathAnimation>().enabled = true;
-        Destroy(gameObject, 3f);
+        Destroy(gameObject,1f);
     }
 }

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -5506169831288015685}
   - component: {fileID: -759078408352130843}
   - component: {fileID: 1170229063529875296}
+  - component: {fileID: -953253962867950006}
   m_Layer: 7
   m_Name: KoopaMystery
   m_TagString: enemy
@@ -256,3 +257,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dc96f1a64b91f468d46ccc9992c2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-953253962867950006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4989235590710558844}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d631de1febaad574b900e469e7662d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 8405326887275024205}
+  deadSprite: {fileID: 21300000, guid: f882caca8db1d9547be2c030f5a6b82e, type: 3}
