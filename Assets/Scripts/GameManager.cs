@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
             return;
         } 
         SceneManager.LoadScene($"{world}-{stage}{difficultyLevel}");
+        UpdateUI();
     }
 
     public void NextLevel()
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator ShowNextLevelPanel()
     {
-        GameObject nls = Extensions.FindInactiveObjectByName("NextLevelScreen");
+        GameObject nls = Extensions.FindInactiveObjectByName("NextLevelScreen(Clone)");
         if (nls != null)
         {
             RectTransform rectTransform = nls.GetComponent<RectTransform>();
@@ -160,7 +161,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ShowLifeLostPanel()
     {
-        GameObject lls = Extensions.FindInactiveObjectByName("LifeLostScreen");
+        GameObject lls = Extensions.FindInactiveObjectByName("LifeLostScreen(Clone)");
         if (lls != null)
         {
             RectTransform rectTransform = lls.GetComponent<RectTransform>();
@@ -224,16 +225,19 @@ public class GameManager : MonoBehaviour
         TextMeshProUGUI lt;
         TextMeshProUGUI st;
 
+        if (!GameObject.Find("Coins")) return;
         GameObject.Find("Coins").TryGetComponent<TextMeshProUGUI>(out ct);
         if (ct != null)
         {
             ct.text = "x " + coins.ToString();
         }
+        if (!GameObject.Find("Lives")) return;
         GameObject.Find("Lives").TryGetComponent<TextMeshProUGUI>(out lt);
         if (lt != null)
         {
             lt.text = lives.ToString();
         }
+        if (!GameObject.Find("Score")) return;
         GameObject.Find("Score").TryGetComponent<TextMeshProUGUI>(out st);
         if (st != null)
         {
