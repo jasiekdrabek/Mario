@@ -211,10 +211,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flag: {fileID: 5895074991242397727}
   poleBottom: {fileID: 478573886396233353}
-  castle: {fileID: 4094218676285484624, guid: 5acc03a1b801bdc40b74a85c7920d236, type: 3}
+  castle: {fileID: 0}
   speed: 6
   nextWorld: 1
-  nextStage: 1
+  nextStage: 2
+  pointsPopupPrefab: {fileID: 4582721596864546985, guid: b5a603e83e2d63e47865c31e39d564fa, type: 3}
+  mainCanvas: {fileID: 0}
 --- !u!1 &4057361041533087005
 GameObject:
   m_ObjectHideFlags: 0

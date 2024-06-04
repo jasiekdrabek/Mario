@@ -20,13 +20,14 @@ public class HighScoreManager : MonoBehaviour
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split(',');
-                    if (parts.Length == 3)
+                    if (parts.Length == 4)
                     {
                         int score = int.Parse(parts[0]);
                         string time = parts[1];
                         int coins = int.Parse(parts[2]);
+                        string name = parts[3];
 
-                        HighScoreEntry entry = new HighScoreEntry { score = score, time = time, coins = coins };
+                        HighScoreEntry entry = new HighScoreEntry { score = score, time = time, coins = coins, name=name };
                         highScores.Add(entry);
                     }
                 }
@@ -41,9 +42,7 @@ public class HighScoreManager : MonoBehaviour
             Debug.LogError("Błąd przy odczytywaniu wyników: " + e.Message);
         }
 
-        Debug.Log("HighScoreManager: Loaded " + highScores.Count + " high scores.");
-
-        return highScores.OrderByDescending(entry => entry.score).Take(10).ToList();
+        return highScores.OrderByDescending(entry => entry.score).Take(7).ToList();
     }
 }
 

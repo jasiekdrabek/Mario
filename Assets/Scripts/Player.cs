@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -8,6 +9,8 @@ public class Player : MonoBehaviour
     public PlayerSpriteRenderer activeRenderer;
     public GameObject Big;
     public GameObject Small;
+    public GameObject pointsPopupPrefab;
+    public Canvas mainCanvas;
 
     public CapsuleCollider2D capsuleCollider { get; private set; }
     public DeathAnimation deathAnimation { get; private set; }
@@ -51,10 +54,14 @@ public class Player : MonoBehaviour
         GameManager.Instance.ResetLevel();
     }
 
-    public void Grow()
+    public void Grow(bool showPoints = true)
     {
         GameManager.Instance.score += 10;
         GameManager.Instance.UpdateUI();
+        if (showPoints)
+        {
+            ShowPoints(10);
+        }
         smallRenderer.enabled = false;
         bigRenderer.enabled = true;
         activeRenderer = bigRenderer;
@@ -107,6 +114,7 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.score += 10;
         GameManager.Instance.UpdateUI();
+        ShowPoints(10);
         StartCoroutine(StarpowerAnimation());
     }
 
@@ -133,6 +141,12 @@ public class Player : MonoBehaviour
         starpower = false;
     }
 
+    public void AddLife()
+    {
+        ShowPoints(5);
+        GameManager.Instance.AddLife();
+    }
+
     public bool isBig()
     {
         if (activeRenderer == bigRenderer)
@@ -140,6 +154,17 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void ShowPoints(int points, bool isMonsterPopUp = false)
+    {
+        GameObject popup = Instantiate(pointsPopupPrefab, mainCanvas.transform);
+
+        PointsPopup pointsPopup = popup.AddComponent<PointsPopup>();
+        pointsPopup.Initialize(Camera.main, transform.position, isMonsterPopUp);
+        pointsPopup.SetPoints(points);
+
+        if (isMonsterPopUp) GameManager.Instance.IncreaseActivePopups();
     }
 
 }

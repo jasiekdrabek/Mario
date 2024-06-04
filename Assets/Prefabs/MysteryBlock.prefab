@@ -143,6 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a92d172e9a41c4db3b8cb5215c9be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 1388159347639787404, guid: fa95ad22d33368142a5d4dc3231babe6, type: 3}
+  item: {fileID: 0}
   emptyBlock: {fileID: 21300000, guid: 0c057401fbf74454fa3032deae7f0a61, type: 3}
   maxHits: 1

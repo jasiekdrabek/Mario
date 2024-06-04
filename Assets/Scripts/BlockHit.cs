@@ -1,12 +1,38 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
+public struct ItemProbability
+{
+    public string itemName; // Nazwa prefabrykaty w folderze Resources
+    public float probability; // Prawdopodobieñstwo wylosowania tego przedmiotu
+}
 public class BlockHit : MonoBehaviour
 {
     public GameObject item;
     public Sprite emptyBlock;
     public int maxHits = -1;
+    public float coinPropability = 0.5f;
+    public float magicMushroomPropability = 0.1f;
+    public float oneUpMushroomPropability = 0.1f;
+    public float dinoPropability = 0.1f;
+    public float bearPropability = 0.1f;
+    public float koopaPropability = 0.1f;
     private bool animating;
+    private bool isItemNull = false;
+    private ItemProbability[] itemsWithProbabilities = new ItemProbability[6];
+
+    void Start()
+    {
+        if(item == null) isItemNull = true;
+        itemsWithProbabilities[0] = new ItemProbability { itemName = "BlockCoin", probability = coinPropability };
+        itemsWithProbabilities[1] = new ItemProbability { itemName = "MagicMushroom", probability = magicMushroomPropability };
+        itemsWithProbabilities[2] = new ItemProbability { itemName = "1upMushroom", probability = magicMushroomPropability };
+        itemsWithProbabilities[3] = new ItemProbability { itemName = "DinoMystery", probability = magicMushroomPropability };
+        itemsWithProbabilities[4] = new ItemProbability { itemName = "bearMystery", probability = magicMushroomPropability };
+        itemsWithProbabilities[5] = new ItemProbability { itemName = "KoopaMystery", probability = magicMushroomPropability };
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -31,10 +57,14 @@ public class BlockHit : MonoBehaviour
         {
             spriteRenderer.sprite = emptyBlock;
         }
-
+        if (item == null && maxHits >= 0)
+        {
+            item = GetRandomItem();
+        }
         if (item != null && maxHits >= 0)
         {
             Instantiate(item, transform.position, Quaternion.identity);
+            if(isItemNull) item = null;
         }
 
         StartCoroutine(Animate(player));
@@ -73,6 +103,42 @@ public class BlockHit : MonoBehaviour
         }
 
         transform.localPosition = to;
+    }
+
+    private GameObject GetRandomItem()
+    {
+        float totalProbability = 0f;
+        foreach (var itemProbability in itemsWithProbabilities)
+        {
+            totalProbability += itemProbability.probability;
+        }
+
+        float randomPoint = Random.value * totalProbability;
+
+        foreach (var itemProbability in itemsWithProbabilities)
+        {
+            if (randomPoint < itemProbability.probability)
+            {
+                return LoadPrefab(itemProbability.itemName);
+            }
+            else
+            {
+                randomPoint -= itemProbability.probability;
+            }
+        }
+
+        return null; // W przypadku gdy coœ pójdzie nie tak
+    }
+
+    // Funkcja ³adowania prefabu z Resources
+    private GameObject LoadPrefab(string itemName)
+    {
+        GameObject prefab = Resources.Load<GameObject>(itemName);
+        if (prefab == null)
+        {
+            Debug.LogError("Prefab not found in Resources: " + itemName);
+        }
+        return prefab;
     }
 
 }

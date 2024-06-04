@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using System.Collections;
 public class HighScoreDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI[] highScoreTexts;
+    private Transform entryContainer;
+    private Transform entryTemplate;
     private HighScoreManager highScoreManager;
 
-    private void Start()
+    private void Awake()
     {
         highScoreManager = FindObjectOfType<HighScoreManager>();
         if (highScoreManager == null)
         {
             Debug.LogError("HighScoreDisplay: HighScoreManager not found!");
         }
-
+        entryContainer = transform.Find("HighScoreContainer");
+        entryTemplate = entryContainer.Find("HighScoreTemplate");
+        entryTemplate.gameObject.SetActive(false);
         StartCoroutine(DisplayScoresCoroutine());
     }
 
@@ -27,20 +30,18 @@ public class HighScoreDisplay : MonoBehaviour
     public void DisplayHighScores()
     {
         List<HighScoreEntry> highScores = highScoreManager.LoadHighScores();
-        Debug.Log("HighScoreDisplay: Displaying " + highScores.Count + " high scores.");
-
-        for (int i = 0; i < highScoreTexts.Length; i++)
+        float height = 40f;
+        for (int i = 0; i < highScores.Count; i++)
         {
-            if (i < highScores.Count)
-            {
-                //highScoreTexts[i].text = $"Score: {highScores[i].score} Time: {highScores[i].time} Coins: {highScores[i].coins}";
-                highScoreTexts[i].text = $" {highScores[i].score}  {highScores[i].time}  {highScores[i].coins}";
-
-            }
-            else
-            {
-                highScoreTexts[i].text = "";
-            }
+            Transform highScore = Instantiate(entryTemplate,entryContainer);
+            RectTransform highScoreRect = highScore.GetComponent<RectTransform>();
+            highScoreRect.anchoredPosition = new Vector2(0, -height * (i+1));
+            highScore.gameObject.SetActive(true);
+            highScore.Find("Score").GetComponent<TextMeshProUGUI>().text = highScores[i].score.ToString();
+            highScore.Find("Time").GetComponent<TextMeshProUGUI>().text = highScores[i].time.ToString();
+            highScore.Find("Coins").GetComponent<TextMeshProUGUI>().text = highScores[i].coins.ToString();
+            highScore.Find("Name").GetComponent<TextMeshProUGUI>().text = highScores[i].name.ToString();
+            highScore.Find("Background").gameObject.SetActive(i %2 == 1);
         }
     }
 }

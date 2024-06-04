@@ -1,4 +1,3 @@
-﻿
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -17,17 +16,20 @@ public class GameManager : MonoBehaviour
     public int stage { get;  set; }
     public int lives { get; private set; }
     public int coins { get; private set; }
+    public int coinsConvertedToLives { get;set; }
     public bool isBig { get; set; }
-    private int activePopups = 0; // Liczba aktywnych popupуw
-    private const int basePoints = 10; // Podstawowa liczba punktуw za przeciwnika
+    private int activePopups = 0; // Liczba aktywnych popupÑƒw
+    private const int basePoints = 10; // Podstawowa liczba punktÑƒw za przeciwnika
     
     private const string filePath = "scores.txt";
-    private float gameTime;
-    public bool isBasicLevelSelected = true;
-    public bool isAdvancedLevelSelected = false;
+    public float gameTime;
+    public string difficultyLevel = "";
+    public bool tutorial  { get; set; }
+
 
     private void Awake()
     {
+        tutorial = true;
         if (Instance != null)
         {
             DestroyImmediate(gameObject);
@@ -51,8 +53,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-        score = 0;
-        gameTime = 0f;
         StartMenu();
     }
 
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         if (isBig)
         {
             Player player = GameObject.Find("Mario").GetComponent<Player>();
-            player.Grow();
+            player.Grow(false);
             score -= 10;
             UpdateUI();
         }
@@ -97,22 +97,19 @@ public class GameManager : MonoBehaviour
         score = 0;
         activePopups = 0;
         gameTime = 0f;
-
-        if (isBasicLevelSelected)
+        coinsConvertedToLives = 0;
+        if (tutorial)
+        {
+            LoadLevel(1, 0);
+        }
+        else
         {
             LoadLevel(1, 1); 
         }
-        else if (isAdvancedLevelSelected)
-        {
-            LoadLevel(1, 2); 
-        }
-
-        //LoadLevel(1, 1);
     }
 
     public void GameOver()
     {
-        SaveScore(score, gameTime, coins);
         isLevelLoading = false;
         SceneManager.LoadScene("Game_over");
     }
@@ -122,7 +119,7 @@ public class GameManager : MonoBehaviour
         this.world = world;
         this.stage = stage;
         isLevelLoading=true;
-        SceneManager.LoadScene($"{world}-{stage}");
+        SceneManager.LoadScene($"{world}-{stage}{difficultyLevel}");
     }
 
     public void NextLevel()
@@ -133,7 +130,7 @@ public class GameManager : MonoBehaviour
 
     private void InvokeLoadLevel()
     {
-        // Wywoіanie wіaњciwej metody z parametrami
+        // WywoÑ–anie wÑ–aÑšciwej metody z parametrami
         LoadLevel(world, stage);
     }
     private IEnumerator ShowNextLevelPanel()
@@ -141,6 +138,14 @@ public class GameManager : MonoBehaviour
         GameObject nls = Extensions.FindInactiveObjectByName("NextLevelScreen");
         if (nls != null)
         {
+            RectTransform rectTransform = nls.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                rectTransform.anchorMin = new Vector2(0, 0);
+                rectTransform.anchorMax = new Vector2(1, 1);
+                rectTransform.offsetMin = Vector2.zero;
+                rectTransform.offsetMax = Vector2.zero;
+            }
             nls.SetActive(true);
             yield return new WaitForSeconds(3f);
             nls.SetActive(false);            
@@ -152,6 +157,14 @@ public class GameManager : MonoBehaviour
         GameObject lls = Extensions.FindInactiveObjectByName("LifeLostScreen");
         if (lls != null)
         {
+            RectTransform rectTransform = lls.GetComponent<RectTransform>();
+            if (rectTransform != null)
+            {
+                rectTransform.anchorMin = new Vector2(0, 0);
+                rectTransform.anchorMax = new Vector2(1, 1);
+                rectTransform.offsetMin = Vector2.zero;
+                rectTransform.offsetMax = Vector2.zero;
+            }
             lls.SetActive(true);
             yield return new WaitForSeconds(3f);
             lls.SetActive(false);
@@ -185,7 +198,9 @@ public class GameManager : MonoBehaviour
         score += 10;
         if (coins == 100)
         {
+            score += 45;
             coins = 0;
+            coinsConvertedToLives++;
             AddLife();
         }
         UpdateUI();
@@ -193,8 +208,8 @@ public class GameManager : MonoBehaviour
 
     public void AddLife()
     {
-        lives++;
-        score += 50;
+        if(lives <=9)lives++;
+        score += 5;
         UpdateUI();
     }
     public void UpdateUI()
@@ -202,27 +217,31 @@ public class GameManager : MonoBehaviour
         TextMeshProUGUI ct; 
         TextMeshProUGUI lt;
         TextMeshProUGUI st;
-        TextMeshProUGUI tt;
 
         GameObject.Find("Coins").TryGetComponent<TextMeshProUGUI>(out ct);
         if (ct != null)
         {
-            ct.text = "Coins: " + coins.ToString();
+            ct.text = "x " + coins.ToString();
         }
         GameObject.Find("Lives").TryGetComponent<TextMeshProUGUI>(out lt);
         if (lt != null)
         {
-            lt.text = "Lives: " + lives.ToString();
+            lt.text = lives.ToString();
         }
         GameObject.Find("Score").TryGetComponent<TextMeshProUGUI>(out st);
         if (st != null)
         {
             st.text = "Score: " + score.ToString();
         }
+    }
+
+    public void UpdateUITime()
+    {
+        TextMeshProUGUI tt;
+        if (!GameObject.Find("Time")) return;
         GameObject.Find("Time").TryGetComponent<TextMeshProUGUI>(out tt);
         if (tt != null)
         {
-            //tt.text = "Time: " + gameTime.ToString("F2");
             tt.text = "Time: " + FormatTime(gameTime);
         }
     }
@@ -245,26 +264,25 @@ public class GameManager : MonoBehaviour
         if (isLevelLoading)
         {
             gameTime += Time.deltaTime;
-            UpdateUI();
+            UpdateUITime();
         }
 
     }
-    private void SaveScore(int score, float gameTime, int coins)
+    public void SaveScore(string name)
     {
         try
         {
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
-                //writer.WriteLine($"{score},{gameTime.ToString("F2").Replace(',', '.')},{coins}");
-                writer.WriteLine($"{score},{FormatTime(gameTime)},{coins}");
+                writer.WriteLine($"{score},{FormatTime(gameTime)},{coins},{name}");
             }
         }
         catch (Exception e)
         {
-            Debug.LogError("Błąd przy zapisywaniu wyniku: " + e.Message);
+            Debug.LogError("BÅ‚Ä…d przy zapisywaniu wyniku: " + e.Message);
         }
     }
-    private string FormatTime(float time)
+    public string FormatTime(float time)
     {
         int minutes = Mathf.FloorToInt(time / 60F);
         int seconds = Mathf.FloorToInt(time % 60F);
