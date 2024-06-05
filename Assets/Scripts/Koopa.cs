@@ -28,6 +28,7 @@ public class Koopa : MonoBehaviour
             }
             else
             {
+                if (player.isHit) return;
                 player.Hit();
             }
         }

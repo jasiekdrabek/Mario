@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public bool big => bigRenderer.enabled;
     public bool dead => deathAnimation.enabled;
     public bool starpower { get; private set; }
+    public bool isHit { get; set; }
 
     private void Awake()
     {
@@ -75,6 +76,7 @@ public class Player : MonoBehaviour
 
     public void Shrink()
     {
+        isHit = true;
         smallRenderer.enabled = true;
         bigRenderer.enabled = false;
         activeRenderer = smallRenderer;
@@ -108,6 +110,7 @@ public class Player : MonoBehaviour
         smallRenderer.enabled = false;
         bigRenderer.enabled = false;
         activeRenderer.enabled = true;
+        isHit = false;
     }
 
     public void Starpower()

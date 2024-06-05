@@ -22,8 +22,8 @@ public class Goomba : MonoBehaviour
             }
             else
             {
+                if (player.isHit) return;
                 player.Hit();
-                new WaitForSeconds(1f);
             }
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Shell"))
