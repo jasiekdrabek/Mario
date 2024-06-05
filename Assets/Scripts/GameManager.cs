@@ -7,8 +7,10 @@ using UnityEngine.UIElements;
 using System;
 using System.IO;
 
+
 public class GameManager : MonoBehaviour
 {
+    AudioManager audioManager;
     public int score { get; set; }
     public bool isLevelLoading { get; set; }
     public static GameManager Instance { get; private set; }
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         tutorial = true;
         if (Instance != null)
         {
@@ -110,6 +113,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        //audioManager.PlaySFX(audioManager.death);
         isLevelLoading = false;
         SceneManager.LoadScene("Game_over");
     }

@@ -4652,11 +4652,11 @@ GameObject:
   - component: {fileID: 1363504742}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1363504742
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4680,6 +4680,7 @@ MonoBehaviour:
   musicSource: {fileID: 1790641270}
   SFXSource: {fileID: 1615072000}
   background: {fileID: 8300000, guid: 755cfbd239a249e43b3e0e05df483124, type: 3}
+  death: {fileID: 8300000, guid: 2551797328f3f654082a7b82b0625182, type: 3}
 --- !u!4 &1363504744
 Transform:
   m_ObjectHideFlags: 0
